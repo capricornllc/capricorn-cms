@@ -2,7 +2,7 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/partner",
+      "path": "/partners",
       "handler": "Partner.find",
       "config": {
         "policies": []
@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/partner/count",
+      "path": "/partners/count",
       "handler": "Partner.count",
       "config": {
         "policies": []
@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/partner/:_id",
+      "path": "/partners/:id",
       "handler": "Partner.findOne",
       "config": {
         "policies": []
@@ -26,7 +26,7 @@
     },
     {
       "method": "POST",
-      "path": "/partner",
+      "path": "/partners",
       "handler": "Partner.create",
       "config": {
         "policies": []
@@ -34,7 +34,7 @@
     },
     {
       "method": "PUT",
-      "path": "/partner/:_id",
+      "path": "/partners/:id",
       "handler": "Partner.update",
       "config": {
         "policies": []
@@ -42,7 +42,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/partner/:_id",
+      "path": "/partners/:id",
       "handler": "Partner.destroy",
       "config": {
         "policies": []

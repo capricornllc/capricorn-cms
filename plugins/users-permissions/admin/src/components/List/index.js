@@ -16,7 +16,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 
 // Design
 import Button from 'components/Button';
-import ListRow from 'components/ListRow';
+import ListRow from '../ListRow';
 
 import styles from './styles.scss';
 
@@ -38,7 +38,7 @@ const generateListTitle = (data, settingType) => {
 
       const disabledProviders = size(data) - enabledProvidersSize > 1 ?
         <FormattedMessage id="users-permissions.List.title.providers.disabled.plural" values={{ number: size(data) - enabledProvidersSize }} />
-        : <FormattedMessage id="users-permissions.List.title.providers.disabled.plural" values={{ number: size(data) - enabledProvidersSize }} />;
+        : <FormattedMessage id="users-permissions.List.title.providers.disabled.singular" values={{ number: size(data) - enabledProvidersSize }} />;
 
       return <div>{enabledProviders}&nbsp;{disabledProviders}</div>;
 

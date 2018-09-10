@@ -12,7 +12,7 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all teammembers.
+   * Promise to fetch all Teammembers.
    *
    * @return {Promise}
    */
@@ -32,11 +32,11 @@ module.exports = {
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)
-      .populate(populate);
+      .populate(filters.populate || populate);
   },
 
   /**
-   * Promise to fetch a/an teammember.
+   * Promise to fetch a/an Teammember.
    *
    * @return {Promise}
    */
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   /**
-   * Promise to count teammembers.
+   * Promise to count Teammembers.
    *
    * @return {Promise}
    */
@@ -64,12 +64,12 @@ module.exports = {
     const filters = strapi.utils.models.convertParams('teammember', params);
 
     return Teammember
-      .count()
+      .countDocuments()
       .where(filters.where);
   },
 
   /**
-   * Promise to add a/an teammember.
+   * Promise to add a/an Teammember.
    *
    * @return {Promise}
    */
@@ -83,11 +83,11 @@ module.exports = {
     const entry = await Teammember.create(data);
 
     // Create relational data and return the entry.
-    return Teammember.updateRelations({ id: entry.id, values: relations });
+    return Teammember.updateRelations({ _id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an teammember.
+   * Promise to edit a/an Teammember.
    *
    * @return {Promise}
    */
@@ -98,14 +98,14 @@ module.exports = {
     const data = _.omit(values, Teammember.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Teammember.update(params, data, { multi: true });
+    const entry = await Teammember.updateOne(params, data, { multi: true });
 
     // Update relational data and return the entry.
     return Teammember.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an teammember.
+   * Promise to remove a/an Teammember.
    *
    * @return {Promise}
    */
@@ -129,6 +129,10 @@ module.exports = {
 
     await Promise.all(
       Teammember.associations.map(async association => {
+        if (!association.via || !data._id) {
+          return true;
+        }
+
         const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
         const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
@@ -142,5 +146,53 @@ module.exports = {
     );
 
     return data;
+  },
+
+  /**
+   * Promise to search a/an Teammember.
+   *
+   * @return {Promise}
+   */
+
+  search: async (params) => {
+    // Convert `params` object to filters compatible with Mongo.
+    const filters = strapi.utils.models.convertParams('teammember', params);
+    // Select field to populate.
+    const populate = Teammember.associations
+      .filter(ast => ast.autoPopulate !== false)
+      .map(ast => ast.alias)
+      .join(' ');
+
+    const $or = Object.keys(Teammember.attributes).reduce((acc, curr) => {
+      switch (Teammember.attributes[curr].type) {
+        case 'integer':
+        case 'float':
+        case 'decimal':
+          if (!_.isNaN(_.toNumber(params._q))) {
+            return acc.concat({ [curr]: params._q });
+          }
+
+          return acc;
+        case 'string':
+        case 'text':
+        case 'password':
+          return acc.concat({ [curr]: { $regex: params._q, $options: 'i' } });
+        case 'boolean':
+          if (params._q === 'true' || params._q === 'false') {
+            return acc.concat({ [curr]: params._q === 'true' });
+          }
+
+          return acc;
+        default:
+          return acc;
+      }
+    }, []);
+
+    return Teammember
+      .find({ $or })
+      .sort(filters.sort)
+      .skip(filters.start)
+      .limit(filters.limit)
+      .populate(populate);
   }
 };

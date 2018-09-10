@@ -1,18 +1,22 @@
 {
   "connection": "default",
-  "collectionName": "technicalpage",
+  "collectionName": "technicalpages",
   "info": {
     "name": "technicalpage",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
     "TermsOfUse": {
+      "default": "",
       "type": "text"
     },
     "Disclosures": {
+      "default": "",
       "type": "text"
     }
   }

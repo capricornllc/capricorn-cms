@@ -8,9 +8,9 @@ const _ = require('lodash');
 
 module.exports = {
   fetchAll: async (params, query) => {
-    const { limit, skip, sort, query : request, queryAttribute, source, page, populate = [] } = query; // eslint-disable-line no-unused-vars
+    const { limit, skip, sort, query : request, queryAttribute, source, populate = [] } = query;
     const filters = strapi.utils.models.convertParams(params.model, query);
-    const where = !_.isEmpty(request) ? request : filters.where;
+    const { where = {} } = !_.isEmpty(request) ? strapi.utils.models.convertParams(params.model, request) : filters;
 
     // Find entries using `queries` system
     return await strapi.query(params.model, source).find({
@@ -118,6 +118,11 @@ module.exports = {
 
       const files = values.files;
 
+      // set empty attributes if old values was cleared
+      _.difference(Object.keys(files), Object.keys(values.fields)).forEach(attr => {
+        values.fields[attr] = [];
+      });
+
       // Parse stringify JSON data.
       values = Object.keys(values.fields).reduce((acc, current) => {
         acc[current] = parser(values.fields[current]);
@@ -156,6 +161,10 @@ module.exports = {
       id: params.id
     });
 
+    if (!response) {
+      throw `This resource doesn't exist.`;
+    }
+
     params[primaryKey] = response[primaryKey];
     params.values = Object.keys(JSON.parse(JSON.stringify(response))).reduce((acc, current) => {
       const association = (strapi.models[params.model] || strapi.plugins[source].models[params.model]).associations.filter(x => x.alias === current)[0];
@@ -182,6 +191,7 @@ module.exports = {
   deleteMany: async (params, query) => {
     const { source } = query;
     const { model } = params;
+
     const primaryKey = strapi.query(model, source).primaryKey;
     const toRemove = Object.keys(query).reduce((acc, curr) => {
       if (curr !== 'source') {

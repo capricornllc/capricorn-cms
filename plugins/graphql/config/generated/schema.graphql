@@ -1,7 +1,62 @@
 type Aboutpage {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  MissionText: String
+  BannerText: String
+  OurApproachText: String
+}
+
+type AboutpageAggregator {
+  count: Int
+}
+
+type AboutpageConnection {
+  values: [Aboutpage]
+  groupBy: AboutpageGroupBy
+  aggregate: AboutpageAggregator
+}
+
+type AboutpageConnection_id {
+  key: ID
+  connection: AboutpageConnection
+}
+
+type AboutpageConnectionBannerText {
+  key: String
+  connection: AboutpageConnection
+}
+
+type AboutpageConnectionCreatedAt {
+  key: DateTime
+  connection: AboutpageConnection
+}
+
+type AboutpageConnectionMissionText {
+  key: String
+  connection: AboutpageConnection
+}
+
+type AboutpageConnectionOurApproachText {
+  key: String
+  connection: AboutpageConnection
+}
+
+type AboutpageConnectionUpdatedAt {
+  key: DateTime
+  connection: AboutpageConnection
+}
+
+type AboutpageGroupBy {
+  _id: [AboutpageConnection_id]
+  createdAt: [AboutpageConnectionCreatedAt]
+  updatedAt: [AboutpageConnectionUpdatedAt]
+  MissionText: [AboutpageConnectionMissionText]
+  BannerText: [AboutpageConnectionBannerText]
+  OurApproachText: [AboutpageConnectionOurApproachText]
+}
+
+input AboutpageInput {
   MissionText: String
   BannerText: String
   OurApproachText: String
@@ -9,29 +64,480 @@ type Aboutpage {
 
 type Contact {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   Longitude: Float
   Latitude: Float
   Title: String
   Address: String
   Website: String
+  Email: String
+}
+
+type ContactAggregator {
+  count: Int
+  sum: ContactAggregatorSum
+  avg: ContactAggregatorAvg
+  min: ContactAggregatorMin
+  max: ContactAggregatorMax
+}
+
+type ContactAggregatorAvg {
+  Longitude: Float
+  Latitude: Float
+}
+
+type ContactAggregatorMax {
+  Longitude: Float
+  Latitude: Float
+}
+
+type ContactAggregatorMin {
+  Longitude: Float
+  Latitude: Float
+}
+
+type ContactAggregatorSum {
+  Longitude: Float
+  Latitude: Float
+}
+
+type ContactConnection {
+  values: [Contact]
+  groupBy: ContactGroupBy
+  aggregate: ContactAggregator
+}
+
+type ContactConnection_id {
+  key: ID
+  connection: ContactConnection
+}
+
+type ContactConnectionAddress {
+  key: String
+  connection: ContactConnection
+}
+
+type ContactConnectionCreatedAt {
+  key: DateTime
+  connection: ContactConnection
+}
+
+type ContactConnectionEmail {
+  key: String
+  connection: ContactConnection
+}
+
+type ContactConnectionLatitude {
+  key: Float
+  connection: ContactConnection
+}
+
+type ContactConnectionLongitude {
+  key: Float
+  connection: ContactConnection
+}
+
+type ContactConnectionTitle {
+  key: String
+  connection: ContactConnection
+}
+
+type ContactConnectionUpdatedAt {
+  key: DateTime
+  connection: ContactConnection
+}
+
+type ContactConnectionWebsite {
+  key: String
+  connection: ContactConnection
+}
+
+type ContactGroupBy {
+  _id: [ContactConnection_id]
+  createdAt: [ContactConnectionCreatedAt]
+  updatedAt: [ContactConnectionUpdatedAt]
+  Longitude: [ContactConnectionLongitude]
+  Latitude: [ContactConnectionLatitude]
+  Title: [ContactConnectionTitle]
+  Address: [ContactConnectionAddress]
+  Website: [ContactConnectionWebsite]
+  Email: [ContactConnectionEmail]
+}
+
+input ContactInput {
+  Longitude: Float
+  Latitude: Float
+  Title: String
+  Address: String
+  Website: String
+  Email: String
+}
+
+input createAboutpageInput {
+  data: AboutpageInput
+}
+
+type createAboutpagePayload {
+  aboutpage: Aboutpage
+}
+
+input createContactInput {
+  data: ContactInput
+}
+
+type createContactPayload {
+  contact: Contact
+}
+
+input createGeneralsettingsInput {
+  data: GeneralsettingsInput
+}
+
+type createGeneralsettingsPayload {
+  generalsetting: Generalsettings
+}
+
+input createGoalsandvalueInput {
+  data: GoalsandvalueInput
+}
+
+type createGoalsandvaluePayload {
+  goalsandvalue: Goalsandvalue
+}
+
+input createGrouppageInput {
+  data: GrouppageInput
+}
+
+type createGrouppagePayload {
+  grouppage: Grouppage
+}
+
+input createHomepageInput {
+  data: HomepageInput
+}
+
+type createHomepagePayload {
+  homepage: Homepage
+}
+
+input createPartnerInput {
+  data: PartnerInput
+}
+
+input createPartnerpageInput {
+  data: PartnerpageInput
+}
+
+type createPartnerpagePayload {
+  partnerpage: Partnerpage
+}
+
+type createPartnerPayload {
+  partner: Partner
+}
+
+input createRoleInput {
+  data: RoleInput
+}
+
+type createRolePayload {
+  role: UsersPermissionsRole
+}
+
+input createTeammemberInput {
+  data: TeammemberInput
+}
+
+type createTeammemberPayload {
+  teammember: Teammember
+}
+
+input createTeampageInput {
+  data: TeampageInput
+}
+
+type createTeampagePayload {
+  teampage: Teampage
+}
+
+input createTechnicalpageInput {
+  data: TechnicalpageInput
+}
+
+type createTechnicalpagePayload {
+  technicalpage: Technicalpage
+}
+
+input createUserInput {
+  data: UserInput
+}
+
+type createUserPayload {
+  user: UsersPermissionsUser
+}
+
+"""
+The `DateTime` scalar represents a date and time following the ISO 8601 standard
+"""
+scalar DateTime
+
+input deleteAboutpageInput {
+  where: InputID
+}
+
+type deleteAboutpagePayload {
+  aboutpage: Aboutpage
+}
+
+input deleteContactInput {
+  where: InputID
+}
+
+type deleteContactPayload {
+  contact: Contact
+}
+
+input deleteGeneralsettingsInput {
+  where: InputID
+}
+
+type deleteGeneralsettingsPayload {
+  generalsetting: Generalsettings
+}
+
+input deleteGoalsandvalueInput {
+  where: InputID
+}
+
+type deleteGoalsandvaluePayload {
+  goalsandvalue: Goalsandvalue
+}
+
+input deleteGrouppageInput {
+  where: InputID
+}
+
+type deleteGrouppagePayload {
+  grouppage: Grouppage
+}
+
+input deleteHomepageInput {
+  where: InputID
+}
+
+type deleteHomepagePayload {
+  homepage: Homepage
+}
+
+input deletePartnerInput {
+  where: InputID
+}
+
+input deletePartnerpageInput {
+  where: InputID
+}
+
+type deletePartnerpagePayload {
+  partnerpage: Partnerpage
+}
+
+type deletePartnerPayload {
+  partner: Partner
+}
+
+input deleteRoleInput {
+  where: InputID
+}
+
+type deleteRolePayload {
+  role: UsersPermissionsRole
+}
+
+input deleteTeammemberInput {
+  where: InputID
+}
+
+type deleteTeammemberPayload {
+  teammember: Teammember
+}
+
+input deleteTeampageInput {
+  where: InputID
+}
+
+type deleteTeampagePayload {
+  teampage: Teampage
+}
+
+input deleteTechnicalpageInput {
+  where: InputID
+}
+
+type deleteTechnicalpagePayload {
+  technicalpage: Technicalpage
+}
+
+input deleteUserInput {
+  where: InputID
+}
+
+type deleteUserPayload {
+  user: UsersPermissionsUser
+}
+
+input editAboutpageInput {
+  MissionText: String
+  BannerText: String
+  OurApproachText: String
+}
+
+input editContactInput {
+  Longitude: Float
+  Latitude: Float
+  Title: String
+  Address: String
+  Website: String
+  Email: String
+}
+
+input editFileInput {
+  name: String
+  hash: String
+  sha256: String
+  ext: String
+  mime: String
+  size: String
+  url: String
+  provider: String
+  public_id: String
+  related: [ID]
+}
+
+input editGeneralsettingsInput {
+  LogoColor: ID
+  LogoWhite: ID
+  LogoDark: ID
+  TwitterURL: String
+  LinkedInURL: String
+}
+
+input editGoalsandvalueInput {
+  Title: String
+  Content: String
+  Image: ID
+}
+
+input editGrouppageInput {
+  IntroText: String
+  ParticipantMediaText: String
+  ParticipantMediaURL: String
+  ParticipantMediaLogo: ID
+  SkollFoundationText: String
+  SkollFoundationURL: String
+  SkollFoundationLogo: ID
+  SkollWorldText: String
+  SkollWorldURL: String
+  SkollWorldLogo: ID
+}
+
+input editHomepageInput {
+  HomeMessageText: String
+  DesktopVideoCover: ID
+  LogoVersion: ENUM_HOMEPAGE_LOGOVERSION
+  MobileImageCover: ID
+  MissionText: String
+  OurApproachText: String
+  JeffSkollGroupText: String
+  NetworkPartnersText: String
+  InvestmentPartnersText: String
+}
+
+input editPartnerInput {
+  Name: String
+  Website: String
+  PartnerType: ENUM_PARTNER_PARTNERTYPE
+  Image: ID
+}
+
+input editPartnerpageInput {
+  NetworkPartnersText: String
+  InvestmentPartnersText: String
+}
+
+input editRoleInput {
+  name: String
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+}
+
+input editTeammemberInput {
+  Avatar: ID
+  Name: String
+  Title: String
+  LinkedIn: String
+  Bio: String
+  Team: ENUM_TEAMMEMBER_TEAM
+}
+
+input editTeampageInput {
+  BannerImage: ID
+}
+
+input editTechnicalpageInput {
+  TermsOfUse: String
+  Disclosures: String
+}
+
+input editUserInput {
+  username: String
+  email: String
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+}
+
+enum ENUM_HOMEPAGE_LOGOVERSION {
+  Color
+  White
+  Dark
 }
 
 enum ENUM_PARTNER_PARTNERTYPE {
+  none
   NetworkOfPartners
   SustainableInvestmentPartners
 }
 
 enum ENUM_TEAMMEMBER_TEAM {
+  none
   Investment
   Operations
 }
 
+input FileInput {
+  name: String!
+  hash: String!
+  sha256: String
+  ext: String
+  mime: String!
+  size: String!
+  url: String!
+  provider: String!
+  public_id: String
+  related: [ID]
+}
+
 type Generalsettings {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   LogoColor: UploadFile
   LogoWhite: UploadFile
   LogoDark: UploadFile
@@ -39,38 +545,266 @@ type Generalsettings {
   LinkedInURL: String
 }
 
+type GeneralsettingsAggregator {
+  count: Int
+}
+
+type GeneralsettingsConnection {
+  values: [Generalsettings]
+  groupBy: GeneralsettingsGroupBy
+  aggregate: GeneralsettingsAggregator
+}
+
+type GeneralsettingsConnection_id {
+  key: ID
+  connection: GeneralsettingsConnection
+}
+
+type GeneralsettingsConnectionCreatedAt {
+  key: DateTime
+  connection: GeneralsettingsConnection
+}
+
+type GeneralsettingsConnectionLinkedInURL {
+  key: String
+  connection: GeneralsettingsConnection
+}
+
+type GeneralsettingsConnectionLogoColor {
+  key: ID
+  connection: GeneralsettingsConnection
+}
+
+type GeneralsettingsConnectionLogoDark {
+  key: ID
+  connection: GeneralsettingsConnection
+}
+
+type GeneralsettingsConnectionLogoWhite {
+  key: ID
+  connection: GeneralsettingsConnection
+}
+
+type GeneralsettingsConnectionTwitterURL {
+  key: String
+  connection: GeneralsettingsConnection
+}
+
+type GeneralsettingsConnectionUpdatedAt {
+  key: DateTime
+  connection: GeneralsettingsConnection
+}
+
+type GeneralsettingsGroupBy {
+  _id: [GeneralsettingsConnection_id]
+  createdAt: [GeneralsettingsConnectionCreatedAt]
+  updatedAt: [GeneralsettingsConnectionUpdatedAt]
+  LogoColor: [GeneralsettingsConnectionLogoColor]
+  LogoWhite: [GeneralsettingsConnectionLogoWhite]
+  LogoDark: [GeneralsettingsConnectionLogoDark]
+  TwitterURL: [GeneralsettingsConnectionTwitterURL]
+  LinkedInURL: [GeneralsettingsConnectionLinkedInURL]
+}
+
+input GeneralsettingsInput {
+  LogoColor: ID
+  LogoWhite: ID
+  LogoDark: ID
+  TwitterURL: String
+  LinkedInURL: String
+}
+
 type Goalsandvalue {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   Title: String
   Content: String
   Image: UploadFile
 }
 
+type GoalsandvalueAggregator {
+  count: Int
+}
+
+type GoalsandvalueConnection {
+  values: [Goalsandvalue]
+  groupBy: GoalsandvalueGroupBy
+  aggregate: GoalsandvalueAggregator
+}
+
+type GoalsandvalueConnection_id {
+  key: ID
+  connection: GoalsandvalueConnection
+}
+
+type GoalsandvalueConnectionContent {
+  key: String
+  connection: GoalsandvalueConnection
+}
+
+type GoalsandvalueConnectionCreatedAt {
+  key: DateTime
+  connection: GoalsandvalueConnection
+}
+
+type GoalsandvalueConnectionImage {
+  key: ID
+  connection: GoalsandvalueConnection
+}
+
+type GoalsandvalueConnectionTitle {
+  key: String
+  connection: GoalsandvalueConnection
+}
+
+type GoalsandvalueConnectionUpdatedAt {
+  key: DateTime
+  connection: GoalsandvalueConnection
+}
+
+type GoalsandvalueGroupBy {
+  _id: [GoalsandvalueConnection_id]
+  createdAt: [GoalsandvalueConnectionCreatedAt]
+  updatedAt: [GoalsandvalueConnectionUpdatedAt]
+  Title: [GoalsandvalueConnectionTitle]
+  Content: [GoalsandvalueConnectionContent]
+  Image: [GoalsandvalueConnectionImage]
+}
+
+input GoalsandvalueInput {
+  Title: String
+  Content: String
+  Image: ID
+}
+
 type Grouppage {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   IntroText: String
   ParticipantMediaText: String
   ParticipantMediaURL: String
+  ParticipantMediaLogo: UploadFile
   SkollFoundationText: String
   SkollFoundationURL: String
+  SkollFoundationLogo: UploadFile
   SkollWorldText: String
   SkollWorldURL: String
-  ParticipantMediaLogo: UploadFile
-  SkollFoundationLogo: UploadFile
   SkollWorldLogo: UploadFile
+}
+
+type GrouppageAggregator {
+  count: Int
+}
+
+type GrouppageConnection {
+  values: [Grouppage]
+  groupBy: GrouppageGroupBy
+  aggregate: GrouppageAggregator
+}
+
+type GrouppageConnection_id {
+  key: ID
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionCreatedAt {
+  key: DateTime
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionIntroText {
+  key: String
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionParticipantMediaLogo {
+  key: ID
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionParticipantMediaText {
+  key: String
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionParticipantMediaURL {
+  key: String
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionSkollFoundationLogo {
+  key: ID
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionSkollFoundationText {
+  key: String
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionSkollFoundationURL {
+  key: String
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionSkollWorldLogo {
+  key: ID
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionSkollWorldText {
+  key: String
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionSkollWorldURL {
+  key: String
+  connection: GrouppageConnection
+}
+
+type GrouppageConnectionUpdatedAt {
+  key: DateTime
+  connection: GrouppageConnection
+}
+
+type GrouppageGroupBy {
+  _id: [GrouppageConnection_id]
+  createdAt: [GrouppageConnectionCreatedAt]
+  updatedAt: [GrouppageConnectionUpdatedAt]
+  IntroText: [GrouppageConnectionIntroText]
+  ParticipantMediaText: [GrouppageConnectionParticipantMediaText]
+  ParticipantMediaURL: [GrouppageConnectionParticipantMediaURL]
+  ParticipantMediaLogo: [GrouppageConnectionParticipantMediaLogo]
+  SkollFoundationText: [GrouppageConnectionSkollFoundationText]
+  SkollFoundationURL: [GrouppageConnectionSkollFoundationURL]
+  SkollFoundationLogo: [GrouppageConnectionSkollFoundationLogo]
+  SkollWorldText: [GrouppageConnectionSkollWorldText]
+  SkollWorldURL: [GrouppageConnectionSkollWorldURL]
+  SkollWorldLogo: [GrouppageConnectionSkollWorldLogo]
+}
+
+input GrouppageInput {
+  IntroText: String
+  ParticipantMediaText: String
+  ParticipantMediaURL: String
+  ParticipantMediaLogo: ID
+  SkollFoundationText: String
+  SkollFoundationURL: String
+  SkollFoundationLogo: ID
+  SkollWorldText: String
+  SkollWorldURL: String
+  SkollWorldLogo: ID
 }
 
 type Homepage {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
-  HomeMessage: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  HomeMessageText: String
   DesktopVideoCover: UploadFile
-  LogoVersion: LogoVersion
+  LogoVersion: ENUM_HOMEPAGE_LOGOVERSION
   MobileImageCover: UploadFile
   MissionText: String
   OurApproachText: String
@@ -79,33 +813,293 @@ type Homepage {
   InvestmentPartnersText: String
 }
 
+type HomepageAggregator {
+  count: Int
+}
+
+type HomepageConnection {
+  values: [Homepage]
+  groupBy: HomepageGroupBy
+  aggregate: HomepageAggregator
+}
+
+type HomepageConnection_id {
+  key: ID
+  connection: HomepageConnection
+}
+
+type HomepageConnectionCreatedAt {
+  key: DateTime
+  connection: HomepageConnection
+}
+
+type HomepageConnectionDesktopVideoCover {
+  key: ID
+  connection: HomepageConnection
+}
+
+type HomepageConnectionHomeMessageText {
+  key: String
+  connection: HomepageConnection
+}
+
+type HomepageConnectionInvestmentPartnersText {
+  key: String
+  connection: HomepageConnection
+}
+
+type HomepageConnectionJeffSkollGroupText {
+  key: String
+  connection: HomepageConnection
+}
+
+type HomepageConnectionLogoVersion {
+  key: String
+  connection: HomepageConnection
+}
+
+type HomepageConnectionMissionText {
+  key: String
+  connection: HomepageConnection
+}
+
+type HomepageConnectionMobileImageCover {
+  key: ID
+  connection: HomepageConnection
+}
+
+type HomepageConnectionNetworkPartnersText {
+  key: String
+  connection: HomepageConnection
+}
+
+type HomepageConnectionOurApproachText {
+  key: String
+  connection: HomepageConnection
+}
+
+type HomepageConnectionUpdatedAt {
+  key: DateTime
+  connection: HomepageConnection
+}
+
+type HomepageGroupBy {
+  _id: [HomepageConnection_id]
+  createdAt: [HomepageConnectionCreatedAt]
+  updatedAt: [HomepageConnectionUpdatedAt]
+  HomeMessageText: [HomepageConnectionHomeMessageText]
+  DesktopVideoCover: [HomepageConnectionDesktopVideoCover]
+  LogoVersion: [HomepageConnectionLogoVersion]
+  MobileImageCover: [HomepageConnectionMobileImageCover]
+  MissionText: [HomepageConnectionMissionText]
+  OurApproachText: [HomepageConnectionOurApproachText]
+  JeffSkollGroupText: [HomepageConnectionJeffSkollGroupText]
+  NetworkPartnersText: [HomepageConnectionNetworkPartnersText]
+  InvestmentPartnersText: [HomepageConnectionInvestmentPartnersText]
+}
+
+input HomepageInput {
+  HomeMessageText: String
+  DesktopVideoCover: ID
+  LogoVersion: ENUM_HOMEPAGE_LOGOVERSION
+  MobileImageCover: ID
+  MissionText: String
+  OurApproachText: String
+  JeffSkollGroupText: String
+  NetworkPartnersText: String
+  InvestmentPartnersText: String
+}
+
+input InputID {
+  id: ID!
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
 
-enum LogoVersion {
-  Color
-  White
-  Dark
-}
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Aboutpage | createAboutpagePayload | updateAboutpagePayload | deleteAboutpagePayload | AboutpageConnection | AboutpageAggregator | AboutpageGroupBy | AboutpageConnection_id | AboutpageConnectionCreatedAt | AboutpageConnectionUpdatedAt | AboutpageConnectionMissionText | AboutpageConnectionBannerText | AboutpageConnectionOurApproachText | Contact | createContactPayload | updateContactPayload | deleteContactPayload | ContactConnection | ContactAggregator | ContactAggregatorSum | ContactAggregatorAvg | ContactAggregatorMin | ContactAggregatorMax | ContactGroupBy | ContactConnection_id | ContactConnectionCreatedAt | ContactConnectionUpdatedAt | ContactConnectionLongitude | ContactConnectionLatitude | ContactConnectionTitle | ContactConnectionAddress | ContactConnectionWebsite | ContactConnectionEmail | Generalsettings | createGeneralsettingsPayload | updateGeneralsettingsPayload | deleteGeneralsettingsPayload | GeneralsettingsConnection | GeneralsettingsAggregator | GeneralsettingsGroupBy | GeneralsettingsConnection_id | GeneralsettingsConnectionCreatedAt | GeneralsettingsConnectionUpdatedAt | GeneralsettingsConnectionLogoColor | GeneralsettingsConnectionLogoWhite | GeneralsettingsConnectionLogoDark | GeneralsettingsConnectionTwitterURL | GeneralsettingsConnectionLinkedInURL | Goalsandvalue | createGoalsandvaluePayload | updateGoalsandvaluePayload | deleteGoalsandvaluePayload | GoalsandvalueConnection | GoalsandvalueAggregator | GoalsandvalueGroupBy | GoalsandvalueConnection_id | GoalsandvalueConnectionCreatedAt | GoalsandvalueConnectionUpdatedAt | GoalsandvalueConnectionTitle | GoalsandvalueConnectionContent | GoalsandvalueConnectionImage | Grouppage | createGrouppagePayload | updateGrouppagePayload | deleteGrouppagePayload | GrouppageConnection | GrouppageAggregator | GrouppageGroupBy | GrouppageConnection_id | GrouppageConnectionCreatedAt | GrouppageConnectionUpdatedAt | GrouppageConnectionIntroText | GrouppageConnectionParticipantMediaText | GrouppageConnectionParticipantMediaURL | GrouppageConnectionParticipantMediaLogo | GrouppageConnectionSkollFoundationText | GrouppageConnectionSkollFoundationURL | GrouppageConnectionSkollFoundationLogo | GrouppageConnectionSkollWorldText | GrouppageConnectionSkollWorldURL | GrouppageConnectionSkollWorldLogo | Homepage | createHomepagePayload | updateHomepagePayload | deleteHomepagePayload | HomepageConnection | HomepageAggregator | HomepageGroupBy | HomepageConnection_id | HomepageConnectionCreatedAt | HomepageConnectionUpdatedAt | HomepageConnectionHomeMessageText | HomepageConnectionDesktopVideoCover | HomepageConnectionLogoVersion | HomepageConnectionMobileImageCover | HomepageConnectionMissionText | HomepageConnectionOurApproachText | HomepageConnectionJeffSkollGroupText | HomepageConnectionNetworkPartnersText | HomepageConnectionInvestmentPartnersText | Partner | createPartnerPayload | updatePartnerPayload | deletePartnerPayload | PartnerConnection | PartnerAggregator | PartnerGroupBy | PartnerConnection_id | PartnerConnectionCreatedAt | PartnerConnectionUpdatedAt | PartnerConnectionName | PartnerConnectionWebsite | PartnerConnectionPartnerType | PartnerConnectionImage | Partnerpage | createPartnerpagePayload | updatePartnerpagePayload | deletePartnerpagePayload | PartnerpageConnection | PartnerpageAggregator | PartnerpageGroupBy | PartnerpageConnection_id | PartnerpageConnectionCreatedAt | PartnerpageConnectionUpdatedAt | PartnerpageConnectionNetworkPartnersText | PartnerpageConnectionInvestmentPartnersText | Teammember | createTeammemberPayload | updateTeammemberPayload | deleteTeammemberPayload | TeammemberConnection | TeammemberAggregator | TeammemberGroupBy | TeammemberConnection_id | TeammemberConnectionCreatedAt | TeammemberConnectionUpdatedAt | TeammemberConnectionAvatar | TeammemberConnectionName | TeammemberConnectionTitle | TeammemberConnectionLinkedIn | TeammemberConnectionBio | TeammemberConnectionTeam | Teampage | createTeampagePayload | updateTeampagePayload | deleteTeampagePayload | TeampageConnection | TeampageAggregator | TeampageGroupBy | TeampageConnection_id | TeampageConnectionCreatedAt | TeampageConnectionUpdatedAt | TeampageConnectionBannerImage | Technicalpage | createTechnicalpagePayload | updateTechnicalpagePayload | deleteTechnicalpagePayload | TechnicalpageConnection | TechnicalpageAggregator | TechnicalpageGroupBy | TechnicalpageConnection_id | TechnicalpageConnectionCreatedAt | TechnicalpageConnectionUpdatedAt | TechnicalpageConnectionTermsOfUse | TechnicalpageConnectionDisclosures | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
-union Morph = Aboutpage | Contact | Generalsettings | Goalsandvalue | Grouppage | Homepage | Partner | Teammember | Teampage | Technicalpage | Partnerpage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+type Mutation {
+  createAboutpage(input: createAboutpageInput): createAboutpagePayload
+  updateAboutpage(input: updateAboutpageInput): updateAboutpagePayload
+  deleteAboutpage(input: deleteAboutpageInput): deleteAboutpagePayload
+  createContact(input: createContactInput): createContactPayload
+  updateContact(input: updateContactInput): updateContactPayload
+  deleteContact(input: deleteContactInput): deleteContactPayload
+  createGeneralsettings(input: createGeneralsettingsInput): createGeneralsettingsPayload
+  updateGeneralsettings(input: updateGeneralsettingsInput): updateGeneralsettingsPayload
+  deleteGeneralsettings(input: deleteGeneralsettingsInput): deleteGeneralsettingsPayload
+  createGoalsandvalue(input: createGoalsandvalueInput): createGoalsandvaluePayload
+  updateGoalsandvalue(input: updateGoalsandvalueInput): updateGoalsandvaluePayload
+  deleteGoalsandvalue(input: deleteGoalsandvalueInput): deleteGoalsandvaluePayload
+  createGrouppage(input: createGrouppageInput): createGrouppagePayload
+  updateGrouppage(input: updateGrouppageInput): updateGrouppagePayload
+  deleteGrouppage(input: deleteGrouppageInput): deleteGrouppagePayload
+  createHomepage(input: createHomepageInput): createHomepagePayload
+  updateHomepage(input: updateHomepageInput): updateHomepagePayload
+  deleteHomepage(input: deleteHomepageInput): deleteHomepagePayload
+  createPartner(input: createPartnerInput): createPartnerPayload
+  updatePartner(input: updatePartnerInput): updatePartnerPayload
+  deletePartner(input: deletePartnerInput): deletePartnerPayload
+  createPartnerpage(input: createPartnerpageInput): createPartnerpagePayload
+  updatePartnerpage(input: updatePartnerpageInput): updatePartnerpagePayload
+  deletePartnerpage(input: deletePartnerpageInput): deletePartnerpagePayload
+  createTeammember(input: createTeammemberInput): createTeammemberPayload
+  updateTeammember(input: updateTeammemberInput): updateTeammemberPayload
+  deleteTeammember(input: deleteTeammemberInput): deleteTeammemberPayload
+  createTeampage(input: createTeampageInput): createTeampagePayload
+  updateTeampage(input: updateTeampageInput): updateTeampagePayload
+  deleteTeampage(input: deleteTeampageInput): deleteTeampagePayload
+  createTechnicalpage(input: createTechnicalpageInput): createTechnicalpagePayload
+  updateTechnicalpage(input: updateTechnicalpageInput): updateTechnicalpagePayload
+  deleteTechnicalpage(input: deleteTechnicalpageInput): deleteTechnicalpagePayload
+
+  """Create a new role"""
+  createRole(input: createRoleInput): createRolePayload
+
+  """Update an existing role"""
+  updateRole(input: updateRoleInput): updateRolePayload
+
+  """Delete an existing role"""
+  deleteRole(input: deleteRoleInput): deleteRolePayload
+
+  """Create a new user"""
+  createUser(input: createUserInput): createUserPayload
+
+  """Update an existing user"""
+  updateUser(input: updateUserInput): updateUserPayload
+
+  """Delete an existing user"""
+  deleteUser(input: deleteUserInput): deleteUserPayload
+  upload(refId: ID, ref: String, source: String, file: Upload!): UploadFile!
+}
 
 type Partner {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   Name: String
   Website: String
   PartnerType: ENUM_PARTNER_PARTNERTYPE
   Image: UploadFile
 }
 
+type PartnerAggregator {
+  count: Int
+}
+
+type PartnerConnection {
+  values: [Partner]
+  groupBy: PartnerGroupBy
+  aggregate: PartnerAggregator
+}
+
+type PartnerConnection_id {
+  key: ID
+  connection: PartnerConnection
+}
+
+type PartnerConnectionCreatedAt {
+  key: DateTime
+  connection: PartnerConnection
+}
+
+type PartnerConnectionImage {
+  key: ID
+  connection: PartnerConnection
+}
+
+type PartnerConnectionName {
+  key: String
+  connection: PartnerConnection
+}
+
+type PartnerConnectionPartnerType {
+  key: String
+  connection: PartnerConnection
+}
+
+type PartnerConnectionUpdatedAt {
+  key: DateTime
+  connection: PartnerConnection
+}
+
+type PartnerConnectionWebsite {
+  key: String
+  connection: PartnerConnection
+}
+
+type PartnerGroupBy {
+  _id: [PartnerConnection_id]
+  createdAt: [PartnerConnectionCreatedAt]
+  updatedAt: [PartnerConnectionUpdatedAt]
+  Name: [PartnerConnectionName]
+  Website: [PartnerConnectionWebsite]
+  PartnerType: [PartnerConnectionPartnerType]
+  Image: [PartnerConnectionImage]
+}
+
+input PartnerInput {
+  Name: String
+  Website: String
+  PartnerType: ENUM_PARTNER_PARTNERTYPE
+  Image: ID
+}
+
 type Partnerpage {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  NetworkPartnersText: String
+  InvestmentPartnersText: String
+}
+
+type PartnerpageAggregator {
+  count: Int
+}
+
+type PartnerpageConnection {
+  values: [Partnerpage]
+  groupBy: PartnerpageGroupBy
+  aggregate: PartnerpageAggregator
+}
+
+type PartnerpageConnection_id {
+  key: ID
+  connection: PartnerpageConnection
+}
+
+type PartnerpageConnectionCreatedAt {
+  key: DateTime
+  connection: PartnerpageConnection
+}
+
+type PartnerpageConnectionInvestmentPartnersText {
+  key: String
+  connection: PartnerpageConnection
+}
+
+type PartnerpageConnectionNetworkPartnersText {
+  key: String
+  connection: PartnerpageConnection
+}
+
+type PartnerpageConnectionUpdatedAt {
+  key: DateTime
+  connection: PartnerpageConnection
+}
+
+type PartnerpageGroupBy {
+  _id: [PartnerpageConnection_id]
+  createdAt: [PartnerpageConnectionCreatedAt]
+  updatedAt: [PartnerpageConnectionUpdatedAt]
+  NetworkPartnersText: [PartnerpageConnectionNetworkPartnersText]
+  InvestmentPartnersText: [PartnerpageConnectionInvestmentPartnersText]
+}
+
+input PartnerpageInput {
   NetworkPartnersText: String
   InvestmentPartnersText: String
 }
@@ -113,42 +1107,141 @@ type Partnerpage {
 type Query {
   aboutpage(id: ID!): Aboutpage
   aboutpages(sort: String, limit: Int, start: Int, where: JSON): [Aboutpage]
+  aboutpagesConnection(sort: String, limit: Int, start: Int, where: JSON): AboutpageConnection
   contact(id: ID!): Contact
   contacts(sort: String, limit: Int, start: Int, where: JSON): [Contact]
+  contactsConnection(sort: String, limit: Int, start: Int, where: JSON): ContactConnection
   generalsetting(id: ID!): Generalsettings
   generalsettings(sort: String, limit: Int, start: Int, where: JSON): [Generalsettings]
+  generalsettingsConnection(sort: String, limit: Int, start: Int, where: JSON): GeneralsettingsConnection
   goalsandvalue(id: ID!): Goalsandvalue
   goalsandvalues(sort: String, limit: Int, start: Int, where: JSON): [Goalsandvalue]
+  goalsandvaluesConnection(sort: String, limit: Int, start: Int, where: JSON): GoalsandvalueConnection
   grouppage(id: ID!): Grouppage
   grouppages(sort: String, limit: Int, start: Int, where: JSON): [Grouppage]
+  grouppagesConnection(sort: String, limit: Int, start: Int, where: JSON): GrouppageConnection
   homepage(id: ID!): Homepage
   homepages(sort: String, limit: Int, start: Int, where: JSON): [Homepage]
+  homepagesConnection(sort: String, limit: Int, start: Int, where: JSON): HomepageConnection
   partner(id: ID!): Partner
   partners(sort: String, limit: Int, start: Int, where: JSON): [Partner]
-  teammember(id: ID!): Teammember
-  teammembers(sort: String, limit: Int, start: Int, where: JSON): [Teammember]
-  teampage(id: ID!): Teampage
-  teampages(sort: String, limit: Int, start: Int, where: JSON): [Teampage]
-  technicalpage(id: ID!): Technicalpage
-  technicalpages(sort: String, limit: Int, start: Int, where: JSON): [Technicalpage]
+  partnersConnection(sort: String, limit: Int, start: Int, where: JSON): PartnerConnection
   partnerpage(id: ID!): Partnerpage
   partnerpages(sort: String, limit: Int, start: Int, where: JSON): [Partnerpage]
+  partnerpagesConnection(sort: String, limit: Int, start: Int, where: JSON): PartnerpageConnection
+  teammember(id: ID!): Teammember
+  teammembers(sort: String, limit: Int, start: Int, where: JSON): [Teammember]
+  teammembersConnection(sort: String, limit: Int, start: Int, where: JSON): TeammemberConnection
+  teampage(id: ID!): Teampage
+  teampages(sort: String, limit: Int, start: Int, where: JSON): [Teampage]
+  teampagesConnection(sort: String, limit: Int, start: Int, where: JSON): TeampageConnection
+  technicalpage(id: ID!): Technicalpage
+  technicalpages(sort: String, limit: Int, start: Int, where: JSON): [Technicalpage]
+  technicalpagesConnection(sort: String, limit: Int, start: Int, where: JSON): TechnicalpageConnection
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+  filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!): UsersPermissionsRole
 
   """
   Retrieve all the existing roles. You can't apply filters on this query.
   """
   roles(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsRole]
+  rolesConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsRoleConnection
   user(id: ID!): UsersPermissionsUser
   users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  usersConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsUserConnection
+  me: UsersPermissionsMe
+}
+
+input RoleInput {
+  name: String!
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
 }
 
 type Teammember {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   Avatar: UploadFile
+  Name: String
+  Title: String
+  LinkedIn: String
+  Bio: String
+  Team: ENUM_TEAMMEMBER_TEAM
+}
+
+type TeammemberAggregator {
+  count: Int
+}
+
+type TeammemberConnection {
+  values: [Teammember]
+  groupBy: TeammemberGroupBy
+  aggregate: TeammemberAggregator
+}
+
+type TeammemberConnection_id {
+  key: ID
+  connection: TeammemberConnection
+}
+
+type TeammemberConnectionAvatar {
+  key: ID
+  connection: TeammemberConnection
+}
+
+type TeammemberConnectionBio {
+  key: String
+  connection: TeammemberConnection
+}
+
+type TeammemberConnectionCreatedAt {
+  key: DateTime
+  connection: TeammemberConnection
+}
+
+type TeammemberConnectionLinkedIn {
+  key: String
+  connection: TeammemberConnection
+}
+
+type TeammemberConnectionName {
+  key: String
+  connection: TeammemberConnection
+}
+
+type TeammemberConnectionTeam {
+  key: String
+  connection: TeammemberConnection
+}
+
+type TeammemberConnectionTitle {
+  key: String
+  connection: TeammemberConnection
+}
+
+type TeammemberConnectionUpdatedAt {
+  key: DateTime
+  connection: TeammemberConnection
+}
+
+type TeammemberGroupBy {
+  _id: [TeammemberConnection_id]
+  createdAt: [TeammemberConnectionCreatedAt]
+  updatedAt: [TeammemberConnectionUpdatedAt]
+  Avatar: [TeammemberConnectionAvatar]
+  Name: [TeammemberConnectionName]
+  Title: [TeammemberConnectionTitle]
+  LinkedIn: [TeammemberConnectionLinkedIn]
+  Bio: [TeammemberConnectionBio]
+  Team: [TeammemberConnectionTeam]
+}
+
+input TeammemberInput {
+  Avatar: ID
   Name: String
   Title: String
   LinkedIn: String
@@ -158,31 +1251,354 @@ type Teammember {
 
 type Teampage {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   BannerImage: UploadFile
+}
+
+type TeampageAggregator {
+  count: Int
+}
+
+type TeampageConnection {
+  values: [Teampage]
+  groupBy: TeampageGroupBy
+  aggregate: TeampageAggregator
+}
+
+type TeampageConnection_id {
+  key: ID
+  connection: TeampageConnection
+}
+
+type TeampageConnectionBannerImage {
+  key: ID
+  connection: TeampageConnection
+}
+
+type TeampageConnectionCreatedAt {
+  key: DateTime
+  connection: TeampageConnection
+}
+
+type TeampageConnectionUpdatedAt {
+  key: DateTime
+  connection: TeampageConnection
+}
+
+type TeampageGroupBy {
+  _id: [TeampageConnection_id]
+  createdAt: [TeampageConnectionCreatedAt]
+  updatedAt: [TeampageConnectionUpdatedAt]
+  BannerImage: [TeampageConnectionBannerImage]
+}
+
+input TeampageInput {
+  BannerImage: ID
 }
 
 type Technicalpage {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   TermsOfUse: String
   Disclosures: String
 }
 
+type TechnicalpageAggregator {
+  count: Int
+}
+
+type TechnicalpageConnection {
+  values: [Technicalpage]
+  groupBy: TechnicalpageGroupBy
+  aggregate: TechnicalpageAggregator
+}
+
+type TechnicalpageConnection_id {
+  key: ID
+  connection: TechnicalpageConnection
+}
+
+type TechnicalpageConnectionCreatedAt {
+  key: DateTime
+  connection: TechnicalpageConnection
+}
+
+type TechnicalpageConnectionDisclosures {
+  key: String
+  connection: TechnicalpageConnection
+}
+
+type TechnicalpageConnectionTermsOfUse {
+  key: String
+  connection: TechnicalpageConnection
+}
+
+type TechnicalpageConnectionUpdatedAt {
+  key: DateTime
+  connection: TechnicalpageConnection
+}
+
+type TechnicalpageGroupBy {
+  _id: [TechnicalpageConnection_id]
+  createdAt: [TechnicalpageConnectionCreatedAt]
+  updatedAt: [TechnicalpageConnectionUpdatedAt]
+  TermsOfUse: [TechnicalpageConnectionTermsOfUse]
+  Disclosures: [TechnicalpageConnectionDisclosures]
+}
+
+input TechnicalpageInput {
+  TermsOfUse: String
+  Disclosures: String
+}
+
+input updateAboutpageInput {
+  where: InputID
+  data: editAboutpageInput
+}
+
+type updateAboutpagePayload {
+  aboutpage: Aboutpage
+}
+
+input updateContactInput {
+  where: InputID
+  data: editContactInput
+}
+
+type updateContactPayload {
+  contact: Contact
+}
+
+input updateGeneralsettingsInput {
+  where: InputID
+  data: editGeneralsettingsInput
+}
+
+type updateGeneralsettingsPayload {
+  generalsetting: Generalsettings
+}
+
+input updateGoalsandvalueInput {
+  where: InputID
+  data: editGoalsandvalueInput
+}
+
+type updateGoalsandvaluePayload {
+  goalsandvalue: Goalsandvalue
+}
+
+input updateGrouppageInput {
+  where: InputID
+  data: editGrouppageInput
+}
+
+type updateGrouppagePayload {
+  grouppage: Grouppage
+}
+
+input updateHomepageInput {
+  where: InputID
+  data: editHomepageInput
+}
+
+type updateHomepagePayload {
+  homepage: Homepage
+}
+
+input updatePartnerInput {
+  where: InputID
+  data: editPartnerInput
+}
+
+input updatePartnerpageInput {
+  where: InputID
+  data: editPartnerpageInput
+}
+
+type updatePartnerpagePayload {
+  partnerpage: Partnerpage
+}
+
+type updatePartnerPayload {
+  partner: Partner
+}
+
+input updateRoleInput {
+  where: InputID
+  data: editRoleInput
+}
+
+type updateRolePayload {
+  role: UsersPermissionsRole
+}
+
+input updateTeammemberInput {
+  where: InputID
+  data: editTeammemberInput
+}
+
+type updateTeammemberPayload {
+  teammember: Teammember
+}
+
+input updateTeampageInput {
+  where: InputID
+  data: editTeampageInput
+}
+
+type updateTeampagePayload {
+  teampage: Teampage
+}
+
+input updateTechnicalpageInput {
+  where: InputID
+  data: editTechnicalpageInput
+}
+
+type updateTechnicalpagePayload {
+  technicalpage: Technicalpage
+}
+
+input updateUserInput {
+  where: InputID
+  data: editUserInput
+}
+
+type updateUserPayload {
+  user: UsersPermissionsUser
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
 type UploadFile {
   _id: ID!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   hash: String!
+  sha256: String
   ext: String
   mime: String!
   size: String!
   url: String!
   provider: String!
+  public_id: String
   related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+type UploadFileAggregator {
+  count: Int
+}
+
+type UploadFileConnection {
+  values: [UploadFile]
+  groupBy: UploadFileGroupBy
+  aggregate: UploadFileAggregator
+}
+
+type UploadFileConnection_id {
+  key: ID
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionCreatedAt {
+  key: DateTime
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionExt {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionHash {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionMime {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionName {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionProvider {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionPublic_id {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionSha256 {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionSize {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUpdatedAt {
+  key: DateTime
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUrl {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileGroupBy {
+  _id: [UploadFileConnection_id]
+  createdAt: [UploadFileConnectionCreatedAt]
+  updatedAt: [UploadFileConnectionUpdatedAt]
+  name: [UploadFileConnectionName]
+  hash: [UploadFileConnectionHash]
+  sha256: [UploadFileConnectionSha256]
+  ext: [UploadFileConnectionExt]
+  mime: [UploadFileConnectionMime]
+  size: [UploadFileConnectionSize]
+  url: [UploadFileConnectionUrl]
+  provider: [UploadFileConnectionProvider]
+  public_id: [UploadFileConnectionPublic_id]
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+}
+
+type UsersPermissionsMe {
+  _id: ID!
+  username: String!
+  email: String!
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsMeRole
+}
+
+type UsersPermissionsMeRole {
+  _id: ID!
+  name: String!
+  description: String
+  type: String
 }
 
 type UsersPermissionsPermission {
@@ -191,7 +1607,7 @@ type UsersPermissionsPermission {
   controller: String!
   action: String!
   enabled: Boolean!
-  policy: String!
+  policy: String
   role: UsersPermissionsRole
 }
 
@@ -200,8 +1616,45 @@ type UsersPermissionsRole {
   name: String!
   description: String
   type: String
-  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
   permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type UsersPermissionsRoleAggregator {
+  count: Int
+}
+
+type UsersPermissionsRoleConnection {
+  values: [UsersPermissionsRole]
+  groupBy: UsersPermissionsRoleGroupBy
+  aggregate: UsersPermissionsRoleAggregator
+}
+
+type UsersPermissionsRoleConnection_id {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionDescription {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionName {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionType {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleGroupBy {
+  _id: [UsersPermissionsRoleConnection_id]
+  name: [UsersPermissionsRoleConnectionName]
+  description: [UsersPermissionsRoleConnectionDescription]
+  type: [UsersPermissionsRoleConnectionType]
 }
 
 type UsersPermissionsUser {
@@ -209,5 +1662,62 @@ type UsersPermissionsUser {
   username: String!
   email: String!
   provider: String
+  confirmed: Boolean
+  blocked: Boolean
   role: UsersPermissionsRole
+}
+
+type UsersPermissionsUserAggregator {
+  count: Int
+}
+
+type UsersPermissionsUserConnection {
+  values: [UsersPermissionsUser]
+  groupBy: UsersPermissionsUserGroupBy
+  aggregate: UsersPermissionsUserAggregator
+}
+
+type UsersPermissionsUserConnection_id {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionBlocked {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionConfirmed {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionEmail {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionProvider {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionRole {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionUsername {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserGroupBy {
+  _id: [UsersPermissionsUserConnection_id]
+  username: [UsersPermissionsUserConnectionUsername]
+  email: [UsersPermissionsUserConnectionEmail]
+  provider: [UsersPermissionsUserConnectionProvider]
+  confirmed: [UsersPermissionsUserConnectionConfirmed]
+  blocked: [UsersPermissionsUserConnectionBlocked]
+  role: [UsersPermissionsUserConnectionRole]
 }

@@ -1,7 +1,16 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+// import { LOCATION_CHANGE } from 'react-router-redux';
 import { Map } from 'immutable';
 import { isEmpty } from 'lodash';
-import { call, fork, put, select, take, takeLatest } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  // cancel,
+  fork,
+  put,
+  select,
+  // take,
+  takeLatest,
+} from 'redux-saga/effects';
 import request from 'utils/request';
 
 import {
@@ -44,10 +53,10 @@ function* dataGet() {
       _sort: pageParams._sort,
       _start,
     };
-    const data = yield [
+    const data = yield all([
       call(request, '/upload/files', { method: 'GET', params }),
       call(request, '/upload/files/count', { method: 'GET' }),
-    ];
+    ]);
     const entries = data[0].length === 0 ? [] : data[0].map(obj => Map(obj));
     yield put(getDataSuccess(entries, data[1].count));
   } catch(err) {
@@ -106,11 +115,13 @@ export function* defaultSaga() {
   yield fork(takeLatest, ON_DROP, uploadFiles);
   yield fork(takeLatest, ON_SEARCH, search);
 
-  const loadDataWatcher = yield fork(takeLatest, GET_DATA, dataGet);
+  yield fork(takeLatest, GET_DATA, dataGet);
+  // TODO: Fix router (Other PR)
+  // const loadDataWatcher = yield fork(takeLatest, GET_DATA, dataGet);
 
-  yield take(LOCATION_CHANGE);
+  // yield take(LOCATION_CHANGE);
 
-  yield cancel(loadDataWatcher);
+  // yield cancel(loadDataWatcher);
 }
 
 // All sagas to be loaded

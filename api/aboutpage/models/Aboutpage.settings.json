@@ -1,21 +1,26 @@
 {
   "connection": "default",
-  "collectionName": "aboutpage",
+  "collectionName": "aboutpages",
   "info": {
     "name": "aboutpage",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
     "MissionText": {
+      "default": "",
       "type": "text"
     },
     "BannerText": {
+      "default": "",
       "type": "text"
     },
     "OurApproachText": {
+      "default": "",
       "type": "text"
     }
   }

@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+// import { LOCATION_CHANGE } from 'react-router-redux';
 import {
   capitalize,
   cloneDeep,
@@ -13,7 +13,15 @@ import {
   unset,
 } from 'lodash';
 import pluralize from 'pluralize';
-import { takeLatest, call, take, put, fork, cancel, select } from 'redux-saga/effects';
+import {
+  takeLatest,
+  call,
+  // take,
+  put,
+  fork,
+  // cancel,
+  select,
+} from 'redux-saga/effects';
 
 import request from 'utils/request';
 
@@ -57,7 +65,6 @@ export function* submitChanges(action) {
   try {
     // Show button loader
     yield put(setButtonLoader());
-
     const modelName = get(storeData.getContentType(), 'name');
     const data = yield select(makeSelectModel());
     const body = cloneDeep(data);
@@ -79,11 +86,16 @@ export function* submitChanges(action) {
           unset(body.attributes[index].params, key);
         }
 
-        if (key === 'pluginValue' && value) {
-          set(body.attributes[index].params, 'plugin', true);
+        if (key === 'pluginValue') {
+          if (value && value !== ' ')  {
+            set(body.attributes[index].params, 'plugin', true);
+          } else {
+            unset(body.attributes[index].params, 'plugin');
+            unset(body.attributes[index].params, 'pluginValue');
+          }
         }
 
-        if (!value && key !== 'multiple') {
+        if (!value && key !== 'multiple' && key !== 'default') {
           const paramsKey = includes(key, 'Value') ? replace(key,'Value', '') : key;
           unset(body.attributes[index].params, paramsKey);
         }
@@ -99,7 +111,6 @@ export function* submitChanges(action) {
     const baseUrl = '/content-type-builder/models/';
     const requestUrl = method === 'POST' ? baseUrl : `${baseUrl}${body.name}`;
     const opts = { method, body };
-
     const response = yield call(request, requestUrl, opts, true);
 
     if (response.ok) {
@@ -136,13 +147,18 @@ export function* submitChanges(action) {
 }
 
 function* defaultSaga() {
-  const loadModelWatcher = yield fork(takeLatest, MODEL_FETCH, fetchModel);
-  const loadSubmitChanges = yield fork(takeLatest, SUBMIT, submitChanges);
+  yield fork(takeLatest, MODEL_FETCH, fetchModel);
+  yield fork(takeLatest, SUBMIT, submitChanges);
 
-  yield take(LOCATION_CHANGE);
+  // TODO fix Router (Other PR);
+  
+  // const loadModelWatcher = yield fork(takeLatest, MODEL_FETCH, fetchModel);
+  // const loadSubmitChanges = yield fork(takeLatest, SUBMIT, submitChanges);
 
-  yield cancel(loadModelWatcher);
-  yield cancel(loadSubmitChanges);
+  // yield take(LOCATION_CHANGE);
+
+  // yield cancel(loadModelWatcher);
+  // yield cancel(loadSubmitChanges);
 }
 
 export default defaultSaga;

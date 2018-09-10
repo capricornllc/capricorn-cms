@@ -12,11 +12,11 @@ import { map, size } from 'lodash';
 
 // Design
 import Button from 'components/Button';
-import Row from 'components/Row';
+import Row from '../Row';
 
 import styles from './styles.scss';
 
-class ListPlugins extends React.Component {
+class ListPlugins extends React.PureComponent {
   render() {
     const listSize = size(this.props.plugins);
     let titleType = listSize === 1 ? 'singular' : 'plural';

@@ -15,7 +15,11 @@ module.exports = {
    */
 
   find: async (ctx) => {
-    return strapi.services.teampage.fetchAll(ctx.query);
+    if (ctx.query._q) {
+      return strapi.services.teampage.search(ctx.query);
+    } else {
+      return strapi.services.teampage.fetchAll(ctx.query);
+    }
   },
 
   /**
@@ -25,10 +29,6 @@ module.exports = {
    */
 
   findOne: async (ctx) => {
-    if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
-      return ctx.notFound();
-    }
-
     return strapi.services.teampage.fetch(ctx.params);
   },
 

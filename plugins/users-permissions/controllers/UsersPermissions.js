@@ -160,9 +160,11 @@ module.exports = {
 
     try {
       await strapi.plugins['users-permissions'].services.userspermissions.updateRole(roleID, ctx.request.body);
+      
+      strapi.emit('didOpenAccessToFetchContentTypeEntries', ctx.request.body);
 
       ctx.send({ ok: true });
-    } catch(error) {
+    } catch (error) {
       ctx.badRequest(null, [{ messages: [{ id: 'An error occurred' }] }]);
     }
   },
@@ -186,7 +188,7 @@ module.exports = {
       type: 'plugin',
       name: 'users-permissions',
       key: 'email'
-    }).set({value: ctx.request.body});
+    }).set({value: ctx.request.body['email-templates']});
 
     ctx.send({ ok: true });
   },
@@ -237,7 +239,7 @@ module.exports = {
       type: 'plugin',
       name: 'users-permissions',
       key: 'grant'
-    }).set({value: ctx.request.body});
+    }).set({value: ctx.request.body.providers});
 
     ctx.send({ ok: true });
   }

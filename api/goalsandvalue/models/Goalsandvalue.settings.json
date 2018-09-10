@@ -1,24 +1,29 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "goalsandvalues",
   "info": {
     "name": "goalsandvalue",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
     "Title": {
+      "default": "",
       "type": "text"
     },
     "Content": {
+      "default": "",
       "type": "text"
     },
     "Image": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     }
   }
 }

@@ -2,32 +2,39 @@
   "connection": "default",
   "collectionName": "generalsettings",
   "info": {
-    "name": "generalSettings",
+    "name": "generalsettings",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
     "LogoColor": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     },
     "LogoWhite": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     },
     "LogoDark": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     },
     "TwitterURL": {
+      "default": "",
       "type": "string"
     },
     "LinkedInURL": {
+      "default": "",
       "type": "string"
     }
   }

@@ -1,18 +1,21 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "teampages",
   "info": {
     "name": "teampage",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
     "BannerImage": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     }
   }
 }

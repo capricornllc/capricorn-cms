@@ -7,10 +7,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { isEmpty, isObject, toString } from 'lodash';
+import { isEmpty, isNull, isObject, toLower, toString } from 'lodash';
+import cn from 'classnames';
 
-import CustomInputCheckbox from 'components/CustomInputCheckbox';
 import IcoContainer from 'components/IcoContainer';
+
+import CustomInputCheckbox from '../CustomInputCheckbox';
 
 import styles from './styles.scss';
 
@@ -30,17 +32,17 @@ class TableRow extends React.Component {
    * @returns {*}
    */
   getDisplayedValue(type, value, name) {
-    switch (type.toLowerCase()) {
+    switch (toLower(type)) {
       case 'string':
       case 'text':
       case 'email':
       case 'enumeration':
-        return (value && !isEmpty(value.toString())) || name === 'id' ? value.toString() : '-';
+        return (value && !isEmpty(toString(value))) || name === 'id' ? toString(value) : '-';
       case 'float':
       case 'integer':
       case 'biginteger':
       case 'decimal':
-        return value && !isEmpty(value.toString()) ? value.toString() : '-';
+        return !isNull(value) ? toString(value) : '-';
       case 'boolean':
         return value !== null ? toString(value) : '-';
       case 'date':
@@ -73,7 +75,7 @@ class TableRow extends React.Component {
     <td key='action' className={styles.actions}>
       <IcoContainer
         icons={[
-          { icoType: 'pencil', onClick: () => this.handleClick(this.props.destination) },
+          { icoType: 'pencil', onClick: this.handleClick },
           { id: this.props.record.id, icoType: 'trash', onClick: this.props.onDelete },
         ]}
       />
@@ -100,19 +102,25 @@ class TableRow extends React.Component {
       .concat([this.renderAction()]);
   }
 
-  renderDelete = () => (
-    <td onClick={(e) => e.stopPropagation()} key="i">
-      <CustomInputCheckbox
-        name={this.props.record.id}
-        onChange={this.props.onChange}
-        value={this.props.value}
-      />
-    </td>
-  );
+  renderDelete = () => {
+    if (this.props.enableBulkActions) {
+      return (
+        <td onClick={(e) => e.stopPropagation()} key="i">
+          <CustomInputCheckbox
+            name={this.props.record.id}
+            onChange={this.props.onChange}
+            value={this.props.value}
+          />
+        </td>
+      );
+    }
+
+    return null;
+  }
 
   render() {
     return (
-      <tr className={styles.tableRow} onClick={() => this.handleClick(this.props.destination)}>
+      <tr className={cn(styles.tableRow, this.props.enableBulkActions && styles.tableRowWithBulk)} onClick={this.handleClick}>
         {this.renderCells()}
       </tr>
     );
@@ -123,12 +131,9 @@ TableRow.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
-TableRow.defaultProps = {
-  value: false,
-};
-
 TableRow.propTypes = {
   destination: PropTypes.string.isRequired,
+  enableBulkActions: PropTypes.bool,
   headers: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
@@ -138,7 +143,9 @@ TableRow.propTypes = {
 };
 
 TableRow.defaultProps = {
+  enableBulkActions: true,
   onDelete: () => {},
+  value: false,
 };
 
 export default TableRow;

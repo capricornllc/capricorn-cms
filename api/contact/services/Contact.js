@@ -12,7 +12,7 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all contacts.
+   * Promise to fetch all Contacts.
    *
    * @return {Promise}
    */
@@ -32,11 +32,11 @@ module.exports = {
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)
-      .populate(populate);
+      .populate(filters.populate || populate);
   },
 
   /**
-   * Promise to fetch a/an contact.
+   * Promise to fetch a/an Contact.
    *
    * @return {Promise}
    */
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   /**
-   * Promise to count contacts.
+   * Promise to count Contacts.
    *
    * @return {Promise}
    */
@@ -64,12 +64,12 @@ module.exports = {
     const filters = strapi.utils.models.convertParams('contact', params);
 
     return Contact
-      .count()
+      .countDocuments()
       .where(filters.where);
   },
 
   /**
-   * Promise to add a/an contact.
+   * Promise to add a/an Contact.
    *
    * @return {Promise}
    */
@@ -83,11 +83,11 @@ module.exports = {
     const entry = await Contact.create(data);
 
     // Create relational data and return the entry.
-    return Contact.updateRelations({ id: entry.id, values: relations });
+    return Contact.updateRelations({ _id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an contact.
+   * Promise to edit a/an Contact.
    *
    * @return {Promise}
    */
@@ -98,14 +98,14 @@ module.exports = {
     const data = _.omit(values, Contact.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Contact.update(params, data, { multi: true });
+    const entry = await Contact.updateOne(params, data, { multi: true });
 
     // Update relational data and return the entry.
     return Contact.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an contact.
+   * Promise to remove a/an Contact.
    *
    * @return {Promise}
    */
@@ -129,6 +129,10 @@ module.exports = {
 
     await Promise.all(
       Contact.associations.map(async association => {
+        if (!association.via || !data._id) {
+          return true;
+        }
+
         const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
         const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
@@ -142,5 +146,53 @@ module.exports = {
     );
 
     return data;
+  },
+
+  /**
+   * Promise to search a/an Contact.
+   *
+   * @return {Promise}
+   */
+
+  search: async (params) => {
+    // Convert `params` object to filters compatible with Mongo.
+    const filters = strapi.utils.models.convertParams('contact', params);
+    // Select field to populate.
+    const populate = Contact.associations
+      .filter(ast => ast.autoPopulate !== false)
+      .map(ast => ast.alias)
+      .join(' ');
+
+    const $or = Object.keys(Contact.attributes).reduce((acc, curr) => {
+      switch (Contact.attributes[curr].type) {
+        case 'integer':
+        case 'float':
+        case 'decimal':
+          if (!_.isNaN(_.toNumber(params._q))) {
+            return acc.concat({ [curr]: params._q });
+          }
+
+          return acc;
+        case 'string':
+        case 'text':
+        case 'password':
+          return acc.concat({ [curr]: { $regex: params._q, $options: 'i' } });
+        case 'boolean':
+          if (params._q === 'true' || params._q === 'false') {
+            return acc.concat({ [curr]: params._q === 'true' });
+          }
+
+          return acc;
+        default:
+          return acc;
+      }
+    }, []);
+
+    return Contact
+      .find({ $or })
+      .sort(filters.sort)
+      .skip(filters.start)
+      .limit(filters.limit)
+      .populate(populate);
   }
 };

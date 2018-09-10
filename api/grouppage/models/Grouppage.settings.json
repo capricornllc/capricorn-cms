@@ -1,49 +1,61 @@
 {
   "connection": "default",
-  "collectionName": "grouppage",
+  "collectionName": "grouppages",
   "info": {
     "name": "grouppage",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
     "IntroText": {
+      "default": "",
       "type": "text"
     },
     "ParticipantMediaText": {
+      "default": "",
       "type": "text"
     },
     "ParticipantMediaURL": {
-      "type": "string"
-    },
-    "SkollFoundationText": {
-      "type": "text"
-    },
-    "SkollFoundationURL": {
-      "type": "string"
-    },
-    "SkollWorldText": {
-      "type": "text"
-    },
-    "SkollWorldURL": {
+      "default": "",
       "type": "string"
     },
     "ParticipantMediaLogo": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
+    },
+    "SkollFoundationText": {
+      "default": "",
+      "type": "text"
+    },
+    "SkollFoundationURL": {
+      "default": "",
+      "type": "string"
     },
     "SkollFoundationLogo": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
+    },
+    "SkollWorldText": {
+      "default": "",
+      "type": "text"
+    },
+    "SkollWorldURL": {
+      "default": "",
+      "type": "string"
     },
     "SkollWorldLogo": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     }
   }
 }

@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/generalsettings/:_id",
+      "path": "/generalsettings/:id",
       "handler": "Generalsettings.findOne",
       "config": {
         "policies": []
@@ -34,7 +34,7 @@
     },
     {
       "method": "PUT",
-      "path": "/generalsettings/:_id",
+      "path": "/generalsettings/:id",
       "handler": "Generalsettings.update",
       "config": {
         "policies": []
@@ -42,7 +42,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/generalsettings/:_id",
+      "path": "/generalsettings/:id",
       "handler": "Generalsettings.destroy",
       "config": {
         "policies": []

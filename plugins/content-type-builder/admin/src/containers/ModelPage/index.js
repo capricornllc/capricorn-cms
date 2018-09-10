@@ -13,25 +13,18 @@ import { FormattedMessage } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { router } from 'app';
-
+import pluginId from 'pluginId';
 // Global selectors
 import { makeSelectMenu } from 'containers/App/selectors';
 import { makeSelectContentTypeUpdated } from 'containers/Form/selectors';
-
 import AttributeRow from 'components/AttributeRow';
 import ContentHeader from 'components/ContentHeader';
-import EmptyAttributesView from 'components/EmptyAttributesView';
+import EmptyAttributesBlock from 'components/EmptyAttributesBlock';
 import Form from 'containers/Form';
 import List from 'components/List';
 import PluginLeftMenu from 'components/PluginLeftMenu';
-
 import forms from 'containers/Form/forms.json';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-
 import { storeData } from '../../utils/storeData';
-
 import {
   cancelChanges,
   deleteAttribute,
@@ -40,7 +33,6 @@ import {
   resetShowButtonsProps,
   submit,
 } from './actions';
-
 import saga from './sagas';
 import reducer from './reducer';
 import selectModelPage from './selectors';
@@ -69,7 +61,7 @@ export class ModelPage extends React.Component { // eslint-disable-line react/pr
 
     this.contentHeaderButtons = [
       { label: 'content-type-builder.form.button.cancel', handleClick: this.props.cancelChanges, kind: 'secondary', type: 'button' },
-      { label: 'content-type-builder.form.button.save', handleClick: this.handleSubmit, kind: 'primary', type: 'submit' },
+      { label: 'content-type-builder.form.button.save', handleClick: this.handleSubmit, kind: 'primary', type: 'submit', id: 'saveData' },
     ];
   }
 
@@ -265,8 +257,9 @@ export class ModelPage extends React.Component { // eslint-disable-line react/pr
     const addButtons  = get(storeData.getContentType(), 'name') === this.props.match.params.modelName && size(get(storeData.getContentType(), 'attributes')) > 0 || this.props.modelPage.showButtons;
     const contentHeaderDescription = this.props.modelPage.model.description || 'content-type-builder.modelPage.contentHeader.emptyDescription.description';
     const content = size(this.props.modelPage.model.attributes) === 0 ?
-      <EmptyAttributesView onClickAddAttribute={this.handleClickAddAttribute} /> :
+      <EmptyAttributesBlock title="content-type-builder.home.emptyAttributes.title" description="content-type-builder.home.emptyAttributes.description" label="content-type-builder.button.attributes.add" onClick={this.handleClickAddAttribute} id="openAddAttr" /> :
       <List
+        id="attributesList"
         listContent={this.props.modelPage.model}
         renderCustomListTitle={this.renderListTitle}
         listContentMappingKey={'attributes'}
@@ -361,8 +354,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withSaga = injectSaga({ key: 'modelPage', saga });
-const withReducer = injectReducer({ key: 'modelPage', reducer });
+const withSaga = strapi.injectSaga({ key: 'modelPage', saga, pluginId });
+const withReducer = strapi.injectReducer({ key: 'modelPage', reducer, pluginId });
 
 export default compose(
   withReducer,

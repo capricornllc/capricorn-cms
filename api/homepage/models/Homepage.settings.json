@@ -1,49 +1,59 @@
 {
   "connection": "default",
-  "collectionName": "homepage",
+  "collectionName": "homepages",
   "info": {
     "name": "homepage",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
-    "HomeMessage": {
+    "HomeMessageText": {
+      "default": "",
       "type": "text"
     },
     "DesktopVideoCover": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     },
     "LogoVersion": {
+      "default": "",
+      "type": "enumeration",
       "enum": [
         "Color",
-        " White",
-        " Dark"
-      ],
-      "enumName": "LogoVersion",
-      "type": "enumeration"
+        "White",
+        "Dark"
+      ]
     },
     "MobileImageCover": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     },
     "MissionText": {
+      "default": "",
       "type": "text"
     },
     "OurApproachText": {
+      "default": "",
       "type": "text"
     },
     "JeffSkollGroupText": {
+      "default": "",
       "type": "text"
     },
     "NetworkPartnersText": {
+      "default": "",
       "type": "text"
     },
     "InvestmentPartnersText": {
+      "default": "",
       "type": "text"
     }
   }

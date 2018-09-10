@@ -6,6 +6,7 @@
 
 import {
   FREEZE_APP,
+  GET_APP_PLUGINS_SUCCEEDED,
   LOAD_PLUGIN,
   PLUGIN_DELETED,
   PLUGIN_LOADED,
@@ -14,9 +15,17 @@ import {
   UPDATE_PLUGIN,
 } from './constants';
 
-export function freezeApp() {
+export function freezeApp(data) {
   return {
     type: FREEZE_APP,
+    data,
+  };
+}
+
+export function getAppPluginsSucceeded(plugins) {
+  return {
+    type: GET_APP_PLUGINS_SUCCEEDED,
+    appPlugins: plugins.map(plugin => plugin.id),
   };
 }
 

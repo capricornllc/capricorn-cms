@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import pluginId from 'pluginId';
 
 import {
   endsWith,
@@ -45,8 +46,6 @@ import { makeSelectSections, makeSelectEnvironments } from 'containers/App/selec
 
 // utils
 import unknowFlag from 'assets/images/unknow_flag.png';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 import supportedFlags from 'utils/supportedFlags.json';
 import { checkFormValidity, getRequiredInputsDb } from '../../utils/inputValidations';
 import getFlag, { formatLanguageLocale } from '../../utils/getFlag';
@@ -397,8 +396,8 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
     // if custom view display render specificComponent
     const Component = this.components[specificComponent];
     const addRequiredInputDesign = this.props.match.params.slug === 'databases';
-    const listTitle = this.props.match.params.slug === 'languages' || 'databases' ? this.renderListTitle() : '';
-    const listButtonLabel = this.props.match.params.slug === 'languages' || 'databases' ? this.renderListButtonLabel() : '';
+    const listTitle = ['languages', 'databases'].includes(this.props.match.params.slug) ? this.renderListTitle() : '';
+    const listButtonLabel = ['languages', 'databases'].includes(this.props.match.params.slug) ? this.renderListButtonLabel() : '';
 
     // check if HeaderNav component needs to render a form or a list
     const renderListComponent = this.props.match.params.slug === 'databases';
@@ -564,8 +563,8 @@ HomePage.propTypes = {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'homePage', reducer });
-const withSaga = injectSaga({ key: 'homePage', saga });
+const withReducer = strapi.injectReducer({ key: 'homePage', reducer, pluginId });
+const withSaga = strapi.injectSaga({ key: 'homePage', saga, pluginId });
 
 export default compose(
   withReducer,

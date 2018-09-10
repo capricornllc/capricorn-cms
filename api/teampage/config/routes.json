@@ -2,7 +2,7 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/teampage",
+      "path": "/teampages",
       "handler": "Teampage.find",
       "config": {
         "policies": []
@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/teampage/count",
+      "path": "/teampages/count",
       "handler": "Teampage.count",
       "config": {
         "policies": []
@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/teampage/:_id",
+      "path": "/teampages/:id",
       "handler": "Teampage.findOne",
       "config": {
         "policies": []
@@ -26,7 +26,7 @@
     },
     {
       "method": "POST",
-      "path": "/teampage",
+      "path": "/teampages",
       "handler": "Teampage.create",
       "config": {
         "policies": []
@@ -34,7 +34,7 @@
     },
     {
       "method": "PUT",
-      "path": "/teampage/:_id",
+      "path": "/teampages/:id",
       "handler": "Teampage.update",
       "config": {
         "policies": []
@@ -42,7 +42,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/teampage/:_id",
+      "path": "/teampages/:id",
       "handler": "Teampage.destroy",
       "config": {
         "policies": []

@@ -12,7 +12,7 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all partnerpages.
+   * Promise to fetch all Partnerpages.
    *
    * @return {Promise}
    */
@@ -32,11 +32,11 @@ module.exports = {
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)
-      .populate(populate);
+      .populate(filters.populate || populate);
   },
 
   /**
-   * Promise to fetch a/an partnerpage.
+   * Promise to fetch a/an Partnerpage.
    *
    * @return {Promise}
    */
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   /**
-   * Promise to count partnerpages.
+   * Promise to count Partnerpages.
    *
    * @return {Promise}
    */
@@ -64,12 +64,12 @@ module.exports = {
     const filters = strapi.utils.models.convertParams('partnerpage', params);
 
     return Partnerpage
-      .count()
+      .countDocuments()
       .where(filters.where);
   },
 
   /**
-   * Promise to add a/an partnerpage.
+   * Promise to add a/an Partnerpage.
    *
    * @return {Promise}
    */
@@ -83,11 +83,11 @@ module.exports = {
     const entry = await Partnerpage.create(data);
 
     // Create relational data and return the entry.
-    return Partnerpage.updateRelations({ id: entry.id, values: relations });
+    return Partnerpage.updateRelations({ _id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an partnerpage.
+   * Promise to edit a/an Partnerpage.
    *
    * @return {Promise}
    */
@@ -98,14 +98,14 @@ module.exports = {
     const data = _.omit(values, Partnerpage.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Partnerpage.update(params, data, { multi: true });
+    const entry = await Partnerpage.updateOne(params, data, { multi: true });
 
     // Update relational data and return the entry.
     return Partnerpage.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an partnerpage.
+   * Promise to remove a/an Partnerpage.
    *
    * @return {Promise}
    */
@@ -129,6 +129,10 @@ module.exports = {
 
     await Promise.all(
       Partnerpage.associations.map(async association => {
+        if (!association.via || !data._id) {
+          return true;
+        }
+
         const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
         const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
@@ -142,5 +146,53 @@ module.exports = {
     );
 
     return data;
+  },
+
+  /**
+   * Promise to search a/an Partnerpage.
+   *
+   * @return {Promise}
+   */
+
+  search: async (params) => {
+    // Convert `params` object to filters compatible with Mongo.
+    const filters = strapi.utils.models.convertParams('partnerpage', params);
+    // Select field to populate.
+    const populate = Partnerpage.associations
+      .filter(ast => ast.autoPopulate !== false)
+      .map(ast => ast.alias)
+      .join(' ');
+
+    const $or = Object.keys(Partnerpage.attributes).reduce((acc, curr) => {
+      switch (Partnerpage.attributes[curr].type) {
+        case 'integer':
+        case 'float':
+        case 'decimal':
+          if (!_.isNaN(_.toNumber(params._q))) {
+            return acc.concat({ [curr]: params._q });
+          }
+
+          return acc;
+        case 'string':
+        case 'text':
+        case 'password':
+          return acc.concat({ [curr]: { $regex: params._q, $options: 'i' } });
+        case 'boolean':
+          if (params._q === 'true' || params._q === 'false') {
+            return acc.concat({ [curr]: params._q === 'true' });
+          }
+
+          return acc;
+        default:
+          return acc;
+      }
+    }, []);
+
+    return Partnerpage
+      .find({ $or })
+      .sort(filters.sort)
+      .skip(filters.start)
+      .limit(filters.limit)
+      .populate(populate);
   }
 };

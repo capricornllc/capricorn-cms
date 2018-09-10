@@ -2,7 +2,7 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/technicalpage",
+      "path": "/technicalpages",
       "handler": "Technicalpage.find",
       "config": {
         "policies": []
@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/technicalpage/count",
+      "path": "/technicalpages/count",
       "handler": "Technicalpage.count",
       "config": {
         "policies": []
@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/technicalpage/:_id",
+      "path": "/technicalpages/:id",
       "handler": "Technicalpage.findOne",
       "config": {
         "policies": []
@@ -26,7 +26,7 @@
     },
     {
       "method": "POST",
-      "path": "/technicalpage",
+      "path": "/technicalpages",
       "handler": "Technicalpage.create",
       "config": {
         "policies": []
@@ -34,7 +34,7 @@
     },
     {
       "method": "PUT",
-      "path": "/technicalpage/:_id",
+      "path": "/technicalpages/:id",
       "handler": "Technicalpage.update",
       "config": {
         "policies": []
@@ -42,7 +42,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/technicalpage/:_id",
+      "path": "/technicalpages/:id",
       "handler": "Technicalpage.destroy",
       "config": {
         "policies": []

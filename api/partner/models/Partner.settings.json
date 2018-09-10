@@ -1,32 +1,38 @@
 {
   "connection": "default",
-  "collectionName": "partner",
+  "collectionName": "partners",
   "info": {
     "name": "partner",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
     "Name": {
+      "default": "",
       "type": "string"
     },
     "Website": {
+      "default": "",
       "type": "string"
     },
     "PartnerType": {
+      "default": "",
       "type": "enumeration",
       "enum": [
         "none",
         "NetworkOfPartners",
-        " SustainableInvestmentPartners"
+        "SustainableInvestmentPartners"
       ]
     },
     "Image": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": false
     }
   }
 }

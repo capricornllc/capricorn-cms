@@ -1,13 +1,14 @@
 {
   "csrf": {
-    "enabled": true,
+    "enabled": false,
     "key": "_csrf",
     "secret": "_csrfSecret"
   },
   "csp": {
     "enabled": true,
-    "policy": [{
-        "img-src": "'self' http:"
+    "policy": [
+      {
+        "img-src": "'self' http: data:"
       },
       "block-all-mixed-content"
     ]
@@ -50,7 +51,8 @@
     "headers": [
       "Content-Type",
       "Authorization",
-      "X-Frame-Options"
+      "X-Frame-Options",
+      "Origin"
     ]
   },
   "ip": {

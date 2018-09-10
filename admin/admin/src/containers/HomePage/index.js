@@ -14,19 +14,20 @@ import PropTypes from 'prop-types';
 import { get, isEmpty, upperFirst } from 'lodash';
 import cn from 'classnames';
 
-import Block from 'components/HomePageBlock/Loadable';
 import Button from 'components/Button';
-import Sub from 'components/Sub/Loadable';
 import Input from 'components/InputText';
-import SupportUsCta from 'components/SupportUsCta/Loadable';
-import SupportUsTitle from 'components/SupportUsTitle/Loadable';
-
-import { selectPlugins } from 'containers/App/selectors';
-
 import auth from 'utils/auth';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 import validateInput from 'utils/inputsValidations';
+
+import Block from '../../components/HomePageBlock';
+import Sub from '../../components/Sub';
+import SupportUsCta from '../../components/SupportUsCta';
+import SupportUsTitle from '../../components/SupportUsTitle';
+
+import { selectPlugins } from '../App/selectors';
+
+import injectReducer from '../../utils/injectReducer';
+import injectSaga from '../../utils/injectSaga';
 
 import BlockLink from './BlockLink';
 import CommunityContent from './CommunityContent';
@@ -52,16 +53,6 @@ const FIRST_BLOCK = [
       id: 'app.components.HomePage.create',
     },
     content: () => <CreateContent />,
-  },
-];
-
-const WELCOME_AGAIN_BLOCK = [
-  {
-    title: {
-      id: 'app.components.HomePage.welcome.again',
-    },
-    name: upperFirst(`${get(auth.getUserInfo(), 'username')}!`),
-    content: () => <WelcomeContent hasContent />,
   },
 ];
 
@@ -147,7 +138,7 @@ export class HomePage extends React.PureComponent {
     const data = this.showFirstBlock()
       ? {
         className: styles.homePageTutorialButton,
-        href: 'https://strapi.io/documentation/getting-started/quick-start.html',
+        href: 'https://strapi.io/documentation/3.x.x/getting-started/quick-start.html#_3-create-a-content-type',
         id: 'app.components.HomePage.button.quickStart',
         primary: true,
       }
@@ -169,11 +160,20 @@ export class HomePage extends React.PureComponent {
 
   render() {
     const { homePage: { articles, body } } = this.props;
+    const WELCOME_AGAIN_BLOCK = [
+      {
+        title: {
+          id: 'app.components.HomePage.welcome.again',
+        },
+        name: upperFirst(`${get(auth.getUserInfo(), 'username')}!`),
+        content: () => <WelcomeContent hasContent />,
+      },
+    ];
 
     return (
       <div className={cn('container-fluid', styles.containerFluid)}>
         <Helmet title="Home Page" />
-        <div className="row">
+        {/* <div className="row">
           <div className="col-md-8 col-lg-8">
             <Block>
               {this.showFirstBlock() &&
@@ -236,7 +236,7 @@ export class HomePage extends React.PureComponent {
               </div>
             </Block>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

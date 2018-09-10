@@ -2,7 +2,7 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/contact",
+      "path": "/contacts",
       "handler": "Contact.find",
       "config": {
         "policies": []
@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/contact/count",
+      "path": "/contacts/count",
       "handler": "Contact.count",
       "config": {
         "policies": []
@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/contact/:_id",
+      "path": "/contacts/:id",
       "handler": "Contact.findOne",
       "config": {
         "policies": []
@@ -26,7 +26,7 @@
     },
     {
       "method": "POST",
-      "path": "/contact",
+      "path": "/contacts",
       "handler": "Contact.create",
       "config": {
         "policies": []
@@ -34,7 +34,7 @@
     },
     {
       "method": "PUT",
-      "path": "/contact/:_id",
+      "path": "/contacts/:id",
       "handler": "Contact.update",
       "config": {
         "policies": []
@@ -42,7 +42,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/contact/:_id",
+      "path": "/contacts/:id",
       "handler": "Contact.destroy",
       "config": {
         "policies": []

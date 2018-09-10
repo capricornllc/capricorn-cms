@@ -3,7 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
-const exec = require('child_process').execSync;
+
+const shell = require('shelljs');
 
 module.exports = {
   menu: {
@@ -198,7 +199,12 @@ module.exports = {
             validations: {
               required: true
             }
-          },
+          }
+        ]
+      },
+      {
+        name: '',
+        items: [
           {
             name: 'form.response.item.responseTime.enabled',
             target: 'response.responseTime.enabled',
@@ -207,6 +213,28 @@ module.exports = {
             validations: {
               required: true
             }
+          }
+        ]
+      },
+      {
+        name: '',
+        items: [
+          {
+            name: 'form.response.item.poweredBy.enabled',
+            target: 'response.poweredBy.enabled',
+            type: 'boolean',
+            value: _.get(strapi.config, `environments.${env}.response.poweredBy.enabled`, null),
+            items: [
+              {
+                name: 'form.response.item.poweredBy.value',
+                target: 'response.poweredBy.value',
+                type: 'string',
+                value: _.get(strapi.config, `environments.${env}.response.poweredBy.value`, null),
+                validations : {
+                  required: true
+                }
+              }
+            ]
           }
         ]
       }
@@ -452,6 +480,41 @@ module.exports = {
             value: _.get(strapi.config, `environments.${env}.server.cron.enabled`, null)
           }
         ]
+      },
+      {
+        name: 'form.server.item.proxy',
+        items: [
+          {
+            name: 'form.server.item.proxy.enable',
+            target: 'server.proxy.enabled',
+            type: 'boolean',
+            value: _.get(strapi.config, `environments.${env}.server.proxy.enabled`, null),
+            items: [
+              {
+                name: 'form.server.item.proxy.host',
+                target: 'server.proxy.host',
+                type: 'string',
+                value: _.get(strapi.config, `environments.${env}.server.proxy.host`, null),
+                validations: {}
+              },
+              {
+                name: 'form.server.item.proxy.port',
+                target: 'server.proxy.port',
+                type: 'number',
+                value: _.get(strapi.config, `environments.${env}.server.proxy.port`, null),
+                validations: {}
+              },
+              {
+                name: 'form.server.item.proxy.ssl',
+                target: 'server.proxy.ssl',
+                type: 'boolean',
+                value: _.get(strapi.config, `environments.${env}.server.proxy.ssl`, null),
+                validations: {}
+              }
+            ],
+            validations: {}
+          }
+        ]
       }
     ]
   }),
@@ -650,9 +713,9 @@ module.exports = {
     const redisClients = ['redis'];
 
     let connector;
-    if (_.indexOf(bookshelfClients, client) !== -1) connector = 'strapi-bookshelf';
-    if (_.indexOf(mongooseClients, client) !== -1) connector = 'strapi-mongoose';
-    if (_.indexOf(redisClients, client) !== -1) connector = 'strapi-redis';
+    if (_.indexOf(bookshelfClients, client) !== -1) connector = 'strapi-hook-bookshelf';
+    if (_.indexOf(mongooseClients, client) !== -1) connector = 'strapi-hook-mongoose';
+    if (_.indexOf(redisClients, client) !== -1) connector = 'strapi-hook-redis';
 
     return connector;
   },
@@ -901,17 +964,17 @@ module.exports = {
 
     if (connector && !installedConnector) {
       strapi.log.info(`Installing ${connector} dependency ...`);
-      exec(`npm install ${connector}@alpha`);
+      shell.exec(`npm install ${connector}@${strapi.config.info.strapi}`, {silent: true});
     }
 
     if (client && !installedClient) {
       strapi.log.info(`Installing ${client} dependency ...`);
-      exec(`npm install ${client}`);
+      shell.exec(`npm install ${client}`, {silent: true});
     }
   },
 
   cleanDependency: (env, config) => {
-    const availableConnectors = ['strapi-mongoose', 'strapi-bookshelf', 'strapi-redis'];
+    const availableConnectors = ['strapi-hook-mongoose', 'strapi-hook-bookshelf', 'strapi-hook-redis'];
     let usedConnectors = [];
     const errors = [];
 

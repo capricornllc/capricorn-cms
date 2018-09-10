@@ -1,37 +1,45 @@
 {
   "connection": "default",
-  "collectionName": "teammember",
+  "collectionName": "teammembers",
   "info": {
     "name": "teammember",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
   },
   "attributes": {
     "Avatar": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": true
     },
     "Name": {
+      "default": "",
       "type": "string"
     },
     "Title": {
+      "default": "",
       "type": "string"
     },
     "LinkedIn": {
+      "default": "",
       "type": "string"
     },
     "Bio": {
+      "default": "",
       "type": "text"
     },
     "Team": {
+      "default": "",
       "type": "enumeration",
       "enum": [
         "none",
         "Investment",
-        " Operations"
+        "Operations"
       ]
     }
   }
