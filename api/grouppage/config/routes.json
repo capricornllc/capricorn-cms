@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/grouppage",
+      "handler": "Grouppage.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/grouppage/count",
+      "handler": "Grouppage.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/grouppage/:_id",
+      "handler": "Grouppage.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/grouppage",
+      "handler": "Grouppage.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/grouppage/:_id",
+      "handler": "Grouppage.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/grouppage/:_id",
+      "handler": "Grouppage.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

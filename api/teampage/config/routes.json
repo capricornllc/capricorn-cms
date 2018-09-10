@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/teampage",
+      "handler": "Teampage.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/teampage/count",
+      "handler": "Teampage.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/teampage/:_id",
+      "handler": "Teampage.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/teampage",
+      "handler": "Teampage.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/teampage/:_id",
+      "handler": "Teampage.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/teampage/:_id",
+      "handler": "Teampage.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

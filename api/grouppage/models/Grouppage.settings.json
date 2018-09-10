@@ -1,0 +1,49 @@
+{
+  "connection": "default",
+  "collectionName": "grouppage",
+  "info": {
+    "name": "grouppage",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "IntroText": {
+      "type": "text"
+    },
+    "ParticipantMediaText": {
+      "type": "text"
+    },
+    "ParticipantMediaURL": {
+      "type": "string"
+    },
+    "SkollFoundationText": {
+      "type": "text"
+    },
+    "SkollFoundationURL": {
+      "type": "string"
+    },
+    "SkollWorldText": {
+      "type": "text"
+    },
+    "SkollWorldURL": {
+      "type": "string"
+    },
+    "ParticipantMediaLogo": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "SkollFoundationLogo": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "SkollWorldLogo": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    }
+  }
+}

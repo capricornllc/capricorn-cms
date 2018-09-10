@@ -1,0 +1,213 @@
+type Aboutpage {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  MissionText: String
+  BannerText: String
+  OurApproachText: String
+}
+
+type Contact {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  Longitude: Float
+  Latitude: Float
+  Title: String
+  Address: String
+  Website: String
+}
+
+enum ENUM_PARTNER_PARTNERTYPE {
+  NetworkOfPartners
+  SustainableInvestmentPartners
+}
+
+enum ENUM_TEAMMEMBER_TEAM {
+  Investment
+  Operations
+}
+
+type Generalsettings {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  LogoColor: UploadFile
+  LogoWhite: UploadFile
+  LogoDark: UploadFile
+  TwitterURL: String
+  LinkedInURL: String
+}
+
+type Goalsandvalue {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  Title: String
+  Content: String
+  Image: UploadFile
+}
+
+type Grouppage {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  IntroText: String
+  ParticipantMediaText: String
+  ParticipantMediaURL: String
+  SkollFoundationText: String
+  SkollFoundationURL: String
+  SkollWorldText: String
+  SkollWorldURL: String
+  ParticipantMediaLogo: UploadFile
+  SkollFoundationLogo: UploadFile
+  SkollWorldLogo: UploadFile
+}
+
+type Homepage {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  HomeMessage: String
+  DesktopVideoCover: UploadFile
+  LogoVersion: LogoVersion
+  MobileImageCover: UploadFile
+  MissionText: String
+  OurApproachText: String
+  JeffSkollGroupText: String
+  NetworkPartnersText: String
+  InvestmentPartnersText: String
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+enum LogoVersion {
+  Color
+  White
+  Dark
+}
+
+union Morph = Aboutpage | Contact | Generalsettings | Goalsandvalue | Grouppage | Homepage | Partner | Teammember | Teampage | Technicalpage | Partnerpage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+
+type Partner {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  Name: String
+  Website: String
+  PartnerType: ENUM_PARTNER_PARTNERTYPE
+  Image: UploadFile
+}
+
+type Partnerpage {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  NetworkPartnersText: String
+  InvestmentPartnersText: String
+}
+
+type Query {
+  aboutpage(id: ID!): Aboutpage
+  aboutpages(sort: String, limit: Int, start: Int, where: JSON): [Aboutpage]
+  contact(id: ID!): Contact
+  contacts(sort: String, limit: Int, start: Int, where: JSON): [Contact]
+  generalsetting(id: ID!): Generalsettings
+  generalsettings(sort: String, limit: Int, start: Int, where: JSON): [Generalsettings]
+  goalsandvalue(id: ID!): Goalsandvalue
+  goalsandvalues(sort: String, limit: Int, start: Int, where: JSON): [Goalsandvalue]
+  grouppage(id: ID!): Grouppage
+  grouppages(sort: String, limit: Int, start: Int, where: JSON): [Grouppage]
+  homepage(id: ID!): Homepage
+  homepages(sort: String, limit: Int, start: Int, where: JSON): [Homepage]
+  partner(id: ID!): Partner
+  partners(sort: String, limit: Int, start: Int, where: JSON): [Partner]
+  teammember(id: ID!): Teammember
+  teammembers(sort: String, limit: Int, start: Int, where: JSON): [Teammember]
+  teampage(id: ID!): Teampage
+  teampages(sort: String, limit: Int, start: Int, where: JSON): [Teampage]
+  technicalpage(id: ID!): Technicalpage
+  technicalpages(sort: String, limit: Int, start: Int, where: JSON): [Technicalpage]
+  partnerpage(id: ID!): Partnerpage
+  partnerpages(sort: String, limit: Int, start: Int, where: JSON): [Partnerpage]
+  files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+  role(id: ID!): UsersPermissionsRole
+
+  """
+  Retrieve all the existing roles. You can't apply filters on this query.
+  """
+  roles(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsRole]
+  user(id: ID!): UsersPermissionsUser
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type Teammember {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  Avatar: UploadFile
+  Name: String
+  Title: String
+  LinkedIn: String
+  Bio: String
+  Team: ENUM_TEAMMEMBER_TEAM
+}
+
+type Teampage {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  BannerImage: UploadFile
+}
+
+type Technicalpage {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  TermsOfUse: String
+  Disclosures: String
+}
+
+type UploadFile {
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
+  name: String!
+  hash: String!
+  ext: String
+  mime: String!
+  size: String!
+  url: String!
+  provider: String!
+  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+type UsersPermissionsPermission {
+  _id: ID!
+  type: String!
+  controller: String!
+  action: String!
+  enabled: Boolean!
+  policy: String!
+  role: UsersPermissionsRole
+}
+
+type UsersPermissionsRole {
+  _id: ID!
+  name: String!
+  description: String
+  type: String
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+}
+
+type UsersPermissionsUser {
+  _id: ID!
+  username: String!
+  email: String!
+  provider: String
+  role: UsersPermissionsRole
+}

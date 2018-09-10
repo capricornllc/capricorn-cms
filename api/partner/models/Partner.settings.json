@@ -1,0 +1,32 @@
+{
+  "connection": "default",
+  "collectionName": "partner",
+  "info": {
+    "name": "partner",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Website": {
+      "type": "string"
+    },
+    "PartnerType": {
+      "type": "enumeration",
+      "enum": [
+        "none",
+        "NetworkOfPartners",
+        " SustainableInvestmentPartners"
+      ]
+    },
+    "Image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    }
+  }
+}

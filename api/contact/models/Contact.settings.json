@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "contact",
+  "info": {
+    "name": "contact",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Longitude": {
+      "type": "float"
+    },
+    "Latitude": {
+      "type": "float"
+    },
+    "Title": {
+      "type": "text"
+    },
+    "Address": {
+      "type": "text"
+    },
+    "Website": {
+      "type": "string"
+    },
+    "Email": {
+      "type": "email"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "connection": "default",
+  "collectionName": "technicalpage",
+  "info": {
+    "name": "technicalpage",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "TermsOfUse": {
+      "type": "text"
+    },
+    "Disclosures": {
+      "type": "text"
+    }
+  }
+}

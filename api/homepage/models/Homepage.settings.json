@@ -1,0 +1,50 @@
+{
+  "connection": "default",
+  "collectionName": "homepage",
+  "info": {
+    "name": "homepage",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "HomeMessage": {
+      "type": "text"
+    },
+    "DesktopVideoCover": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "LogoVersion": {
+      "enum": [
+        "Color",
+        " White",
+        " Dark"
+      ],
+      "enumName": "LogoVersion",
+      "type": "enumeration"
+    },
+    "MobileImageCover": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "MissionText": {
+      "type": "text"
+    },
+    "OurApproachText": {
+      "type": "text"
+    },
+    "JeffSkollGroupText": {
+      "type": "text"
+    },
+    "NetworkPartnersText": {
+      "type": "text"
+    },
+    "InvestmentPartnersText": {
+      "type": "text"
+    }
+  }
+}

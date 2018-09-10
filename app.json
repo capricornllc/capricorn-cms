@@ -1,0 +1,13 @@
+{
+  "name": "Capricorn CMS",
+  "description": "A Strapi app",
+  "repository": "https://github.com/goncalobo/capricorn-cms",
+  "logo": "https://raw.githubusercontent.com/goncalobo/capricorn-cms/master/public/avatar-strapi.jpg",
+  "keywords": ["node", "strapi", "API"],
+  "addons": [
+    {
+      "plan": "mongolab:sandbox",
+      "as": "DATABASE"
+    }
+  ]
+}

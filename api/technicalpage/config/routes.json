@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/technicalpage",
+      "handler": "Technicalpage.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/technicalpage/count",
+      "handler": "Technicalpage.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/technicalpage/:_id",
+      "handler": "Technicalpage.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/technicalpage",
+      "handler": "Technicalpage.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/technicalpage/:_id",
+      "handler": "Technicalpage.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/technicalpage/:_id",
+      "handler": "Technicalpage.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

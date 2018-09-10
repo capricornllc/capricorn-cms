@@ -1,0 +1,19 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "partnerpage",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "NetworkPartnersText": {
+      "type": "text"
+    },
+    "InvestmentPartnersText": {
+      "type": "text"
+    }
+  }
+}

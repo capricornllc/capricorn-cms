@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/goalsandvalue",
+      "handler": "Goalsandvalue.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/goalsandvalue/count",
+      "handler": "Goalsandvalue.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/goalsandvalue/:_id",
+      "handler": "Goalsandvalue.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/goalsandvalue",
+      "handler": "Goalsandvalue.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/goalsandvalue/:_id",
+      "handler": "Goalsandvalue.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/goalsandvalue/:_id",
+      "handler": "Goalsandvalue.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
