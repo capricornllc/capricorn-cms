@@ -13,7 +13,8 @@
   "attributes": {
     "HomeMessageText": {
       "default": "",
-      "type": "text"
+      "type": "text",
+      "appearance": "WYSIWYG"
     },
     "DesktopVideoCover": {
       "model": "file",

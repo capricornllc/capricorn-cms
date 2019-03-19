@@ -31,7 +31,8 @@
     },
     "Bio": {
       "default": "",
-      "type": "text"
+      "type": "text",
+      "appearance": "WYSIWYG"
     },
     "Team": {
       "default": "",

@@ -21,7 +21,8 @@
     },
     "Title": {
       "default": "",
-      "type": "text"
+      "type": "text",
+      "appearance": "WYSIWYG"
     },
     "Address": {
       "default": "",

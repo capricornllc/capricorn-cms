@@ -13,11 +13,13 @@
   "attributes": {
     "TermsOfUse": {
       "default": "",
-      "type": "text"
+      "type": "text",
+      "appearance": "WYSIWYG"
     },
     "Disclosures": {
       "default": "",
-      "type": "text"
+      "type": "text",
+      "appearance": "WYSIWYG"
     }
   }
 }

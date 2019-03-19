@@ -13,7 +13,8 @@
   "attributes": {
     "Title": {
       "default": "",
-      "type": "text"
+      "type": "text",
+      "appearance": "WYSIWYG"
     },
     "Content": {
       "default": "",
