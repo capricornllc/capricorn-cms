@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "knex": "latest",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.21",
     "sqlite3": "^4.0.6",
     "strapi": "3.0.0-alpha.24.1",
     "strapi-bookshelf": "^3.0.0-alpha.12.7.1",
